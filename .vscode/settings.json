@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/src/articubot_one"
+    "cmake.sourceDirectory": "${workspaceFolder}/src/articubot_one",
+    "C_Cpp.errorSquiggles": "disabled"
 }
