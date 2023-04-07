@@ -28,25 +28,30 @@ namespace ros2_control_demo_example_2
 hardware_interface::CallbackReturn DiffBotSystemHardware::on_init(
   const hardware_interface::HardwareInfo & info)
 {
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Antonio on_init() entry");
   if (
     hardware_interface::SystemInterface::on_init(info) !=
     hardware_interface::CallbackReturn::SUCCESS)
   {
     return hardware_interface::CallbackReturn::ERROR;
   }
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Antonio on_init() exit");
 
   base_x_ = 0.0;
   base_y_ = 0.0;
   base_theta_ = 0.0;
 
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Antonio on_init() check example_params");
   hw_start_sec_ = std::stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
   hw_stop_sec_ = std::stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
   // END: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Antonio on_init() check position + velocity + commands");
   hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
 
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Antonio on_init() check joints");
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
     // DiffBotSystem has exactly two states and one command interface on each joint

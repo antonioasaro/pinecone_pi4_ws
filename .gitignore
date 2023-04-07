@@ -39,4 +39,4 @@ build/
 log/
 install/
 
-abc.log
+*.log
