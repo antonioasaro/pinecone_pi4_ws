@@ -185,7 +185,14 @@ namespace ros2_control_demo_example_2
       // Simulate DiffBot wheels's movement as a first-order system
       // Update the joint status: this is a revolute joint without any limit.
       // Simply integrates
-      hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+      if (i == 0)
+      {
+        hw_positions_[i] = 0; // hw_positions_[1] + period.seconds() * hw_commands_[i] / 100;
+      }
+      else
+      {
+        hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+      }
       hw_velocities_[i] = hw_commands_[i];
 
 #ifdef ANTONIO
