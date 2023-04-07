@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "diffdrive_esp32/diffbot_system.hpp"
+#include "ros2_control_demo_example_2/diffbot_system.hpp"
 
 #include <chrono>
 #include <cmath>
@@ -23,7 +23,7 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-namespace diffdrive_esp32
+namespace ros2_control_demo_example_2
 {
 hardware_interface::CallbackReturn DiffBotSystemHardware::on_init(
   const hardware_interface::HardwareInfo & info)
@@ -188,10 +188,10 @@ hardware_interface::return_type DiffBotSystemHardware::read(
     hw_velocities_[i] = hw_commands_[i];
 
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-////    RCLCPP_INFO(
-////      rclcpp::get_logger("DiffBotSystemHardware"),
-////      "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
-////      hw_velocities_[i], info_.joints[i].name.c_str());
+    RCLCPP_INFO(
+      rclcpp::get_logger("DiffBotSystemHardware"),
+      "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+      hw_velocities_[i], info_.joints[i].name.c_str());
     // END: This part here is for exemplary purposes - Please do not copy to your production code
   }
 
@@ -205,35 +205,35 @@ hardware_interface::return_type DiffBotSystemHardware::read(
   base_theta_ += base_dtheta * period.seconds();
 
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-////  RCLCPP_INFO(
-////    rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully read! (%.5f,%.5f,%.5f)",
-////    base_x_, base_y_, base_theta_);
+  RCLCPP_INFO(
+    rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully read! (%.5f,%.5f,%.5f)",
+    base_x_, base_y_, base_theta_);
   // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   return hardware_interface::return_type::OK;
 }
 
-hardware_interface::return_type diffdrive_esp32 ::DiffBotSystemHardware::write(
+hardware_interface::return_type ros2_control_demo_example_2 ::DiffBotSystemHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-////  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
 
   for (auto i = 0u; i < hw_commands_.size(); i++)
   {
     // Simulate sending commands to the hardware
-////    RCLCPP_INFO(
-////      rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
-////      info_.joints[i].name.c_str());
+    RCLCPP_INFO(
+      rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
+      info_.joints[i].name.c_str());
   }
-////  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully written!");
+  RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully written!");
   // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   return hardware_interface::return_type::OK;
 }
 
-}  // namespace diffdrive_esp32
+}  // namespace ros2_control_demo_example_2
 
 #include "pluginlib/class_list_macros.hpp"
 PLUGINLIB_EXPORT_CLASS(
-  diffdrive_esp32::DiffBotSystemHardware, hardware_interface::SystemInterface)
+  ros2_control_demo_example_2::DiffBotSystemHardware, hardware_interface::SystemInterface)
