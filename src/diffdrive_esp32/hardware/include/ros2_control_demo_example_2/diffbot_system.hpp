@@ -23,6 +23,7 @@
 #include "hardware_interface/hardware_info.hpp"
 #include "hardware_interface/system_interface.hpp"
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "rclcpp/clock.hpp"
 #include "rclcpp/duration.hpp"
 #include "rclcpp/macros.hpp"
@@ -30,9 +31,25 @@
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 #include "rclcpp_lifecycle/state.hpp"
 #include "ros2_control_demo_example_2/visibility_control.h"
+#include "std_msgs/msg/string.hpp"
+
+
+#include <geometry_msgs/msg/twist.hpp>
 
 namespace ros2_control_demo_example_2
 {
+
+class HardwareCommandPub : public rclcpp::Node  //the node definition for the publisher to talk to micro-ROS agent
+{
+  public:
+    HardwareCommandPub();
+    void publishData();
+
+  private:
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+
+};
+
 class DiffBotSystemHardware : public hardware_interface::SystemInterface
 {
 public:
@@ -64,6 +81,8 @@ public:
   hardware_interface::return_type write(
     const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
+ std::shared_ptr<HardwareCommandPub> hw_cmd_pub_;    //make the publisher node a member
+ 
 private:
   // Parameters for the DiffBot simulation
   double hw_start_sec_;

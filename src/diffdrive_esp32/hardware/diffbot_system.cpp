@@ -13,6 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*ROS2 Control Demos diffbot hardware interface publisher. My use-case is sending hardware commands from a Raspberry Pi 4 running a diffrential drive robot controller to a Teensy 4.1 microcontroller controlling the actual hardware. The Teensy is running micro-ROS and can subscribe and publish to topics over a USB connection to the Raspberry Pi. The important change between this gist and the official demos is the presence of a node class, and the addition of a shared pointer member for the node in DiffBotSystemHardware. The shared pointer gets assigned in the on_init() member function, at which point its publisher can be used.
+ */
+
 #include "ros2_control_demo_example_2/diffbot_system.hpp"
 
 #include <chrono>
@@ -23,9 +26,25 @@
 
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
+//// #include <rclcpp_components/register_node_macro.hpp>
 
 namespace ros2_control_demo_example_2
 {
+
+  HardwareCommandPub::HardwareCommandPub() : Node("hardware_command_publisher")
+  {
+    publisher_ = this->create_publisher<std_msgs::msg::String>("test_topic", 10);
+  }
+
+  void HardwareCommandPub::publishData()
+  {
+    static int count = 0;
+    auto message = std_msgs::msg::String();
+    message.data = "Hello, world! " + std::to_string(count++);
+    publisher_->publish(message);
+  }
+
   hardware_interface::CallbackReturn DiffBotSystemHardware::on_init(
       const hardware_interface::HardwareInfo &info)
   {
@@ -39,6 +58,13 @@ namespace ros2_control_demo_example_2
     base_x_ = 0.0;
     base_y_ = 0.0;
     base_theta_ = 0.0;
+
+    hw_cmd_pub_ = std::make_shared<HardwareCommandPub>(); // fire up the publisher node
+
+    if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
+    {
+      return CallbackReturn::ERROR;
+    }
 
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
     hw_start_sec_ = std::stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
@@ -245,6 +271,7 @@ namespace ros2_control_demo_example_2
         RCLCPP_INFO(
             rclcpp::get_logger("DiffBotSystemHardware"), "Got write command %.5f for '%s'!", hw_commands_[i],
             info_.joints[i].name.c_str());
+        hw_cmd_pub_->publishData(); // publish to topic
       }
     }
 #else
@@ -261,9 +288,9 @@ namespace ros2_control_demo_example_2
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully written!");
     // END: This part here is for exemplary purposes - Please do not copy to your production code
 #endif
+
     return hardware_interface::return_type::OK;
   }
-
 } // namespace ros2_control_demo_example_2
 
 #include "pluginlib/class_list_macros.hpp"
