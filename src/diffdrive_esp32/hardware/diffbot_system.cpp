@@ -27,22 +27,23 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "std_msgs/msg/int32.hpp"
 //// #include <rclcpp_components/register_node_macro.hpp>
 
 namespace ros2_control_demo_example_2
 {
 
-  HardwareCommandPub::HardwareCommandPub() : Node("hardware_command_publisher")
+  Pi4_Esp32_PubSub::Pi4_Esp32_PubSub() : Node("pinecone_pi4")
   {
-    publisher_ = this->create_publisher<std_msgs::msg::String>("test_topic", 10);
+    publisher_ = this->create_publisher<std_msgs::msg::Int32>("right_wheel_speed", 10);
   }
 
-  void HardwareCommandPub::publishData()
+  void Pi4_Esp32_PubSub::Publish_Speed()
   {
-    static int count = 0;
-    auto message = std_msgs::msg::String();
-    message.data = "Hello, world! " + std::to_string(count++);
-    publisher_->publish(message);
+    static int32_t count = 0;
+    std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
+    msg->data = count++;
+    publisher_->publish(std::move(msg));
   }
 
   hardware_interface::CallbackReturn DiffBotSystemHardware::on_init(
@@ -59,7 +60,7 @@ namespace ros2_control_demo_example_2
     base_y_ = 0.0;
     base_theta_ = 0.0;
 
-    hw_cmd_pub_ = std::make_shared<HardwareCommandPub>(); // fire up the publisher node
+    pi4_esp32_pubsub_ = std::make_shared<Pi4_Esp32_PubSub>(); // fire up the publisher node
 
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
     {
@@ -271,7 +272,7 @@ namespace ros2_control_demo_example_2
         RCLCPP_INFO(
             rclcpp::get_logger("DiffBotSystemHardware"), "Got write command %.5f for '%s'!", hw_commands_[i],
             info_.joints[i].name.c_str());
-        hw_cmd_pub_->publishData(); // publish to topic
+        pi4_esp32_pubsub_->Publish_Speed(); // publish to topic
       }
     }
 #else

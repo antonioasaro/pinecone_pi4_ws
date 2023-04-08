@@ -32,21 +32,20 @@
 #include "rclcpp_lifecycle/state.hpp"
 #include "ros2_control_demo_example_2/visibility_control.h"
 #include "std_msgs/msg/string.hpp"
-
-
-#include <geometry_msgs/msg/twist.hpp>
+#include "std_msgs/msg/int32.hpp"
 
 namespace ros2_control_demo_example_2
 {
 
-class HardwareCommandPub : public rclcpp::Node  //the node definition for the publisher to talk to micro-ROS agent
+// The node definition for the publisher to talk to micro-ROS agent
+class Pi4_Esp32_PubSub : public rclcpp::Node
 {
   public:
-    HardwareCommandPub();
-    void publishData();
+    Pi4_Esp32_PubSub();
+    void Publish_Speed();
 
   private:
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+    rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_;
 
 };
 
@@ -81,7 +80,8 @@ public:
   hardware_interface::return_type write(
     const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
- std::shared_ptr<HardwareCommandPub> hw_cmd_pub_;    //make the publisher node a member
+  // Make the publisher node a member
+  std::shared_ptr<Pi4_Esp32_PubSub> pi4_esp32_pubsub_;
  
 private:
   // Parameters for the DiffBot simulation
