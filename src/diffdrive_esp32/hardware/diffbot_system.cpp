@@ -35,8 +35,9 @@ namespace ros2_control_demo_example_2
 {
 
 #ifdef ANTONIO
-  Pi4_Esp32_Publisher::Pi4_Esp32_Publisher() : Node("pinecone_pi4_publisher")
+  Pi4_Esp32_Publisher::Pi4_Esp32_Publisher() : Node("pi4_esp32_publisher")
   {
+    RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Publisher'");
     publisher_ = this->create_publisher<std_msgs::msg::Int32>("right_wheel_speed", 10);
   }
 
@@ -50,12 +51,14 @@ namespace ros2_control_demo_example_2
 
   Pi4_Esp32_Subscriber::Pi4_Esp32_Subscriber() : Node("pi4_esp32_subscriber")
   {
+    RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Subscriber'");
     subscriber_ = this->create_subscription<std_msgs::msg::Int32>(
         "right_wheel_thingy", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
   }
 
   void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const
   {
+    printf("hello there from the pi4_esp32_subscriber\n");
     RCLCPP_INFO(this->get_logger(), "I heard: '%d'", msg->data);
   }
 #endif
