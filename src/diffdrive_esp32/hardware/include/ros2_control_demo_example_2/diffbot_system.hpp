@@ -38,15 +38,14 @@ namespace ros2_control_demo_example_2
 {
 
 // The node definition for the publisher to talk to micro-ROS agent
-class Pi4_Esp32_PubSub : public rclcpp::Node
+class Pi4_Esp32_Publisher : public rclcpp::Node
 {
   public:
-    Pi4_Esp32_PubSub();
+    Pi4_Esp32_Publisher();
     void Publish_Speed();
 
   private:
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_;
-
 };
 
 class DiffBotSystemHardware : public hardware_interface::SystemInterface
@@ -81,7 +80,7 @@ public:
     const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
   // Make the publisher node a member
-  std::shared_ptr<Pi4_Esp32_PubSub> pi4_esp32_pubsub_;
+  std::shared_ptr<Pi4_Esp32_Publisher> pi4_esp32_publisher_;
  
 private:
   // Parameters for the DiffBot simulation

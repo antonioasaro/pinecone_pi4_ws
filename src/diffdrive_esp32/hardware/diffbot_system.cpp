@@ -33,17 +33,17 @@
 namespace ros2_control_demo_example_2
 {
 
-  Pi4_Esp32_PubSub::Pi4_Esp32_PubSub() : Node("pinecone_pi4")
+  Pi4_Esp32_Publisher::Pi4_Esp32_Publisher() : Node("pinecone_pi4_publisher")
   {
     publisher_ = this->create_publisher<std_msgs::msg::Int32>("right_wheel_speed", 10);
   }
 
-  void Pi4_Esp32_PubSub::Publish_Speed()
+  void Pi4_Esp32_Publisher::Publish_Speed()
   {
     static int32_t count = 0;
     std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
     msg->data = count++;
-    publisher_->publish(std::move(msg));
+    publisher_->publish(std::move(msg));   // auto-inc
   }
 
   hardware_interface::CallbackReturn DiffBotSystemHardware::on_init(
@@ -60,7 +60,8 @@ namespace ros2_control_demo_example_2
     base_y_ = 0.0;
     base_theta_ = 0.0;
 
-    pi4_esp32_pubsub_ = std::make_shared<Pi4_Esp32_PubSub>(); // fire up the publisher node
+    // Fire up the publisher node
+    pi4_esp32_publisher_ = std::make_shared<Pi4_Esp32_Publisher>(); 
 
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
     {
@@ -272,7 +273,7 @@ namespace ros2_control_demo_example_2
         RCLCPP_INFO(
             rclcpp::get_logger("DiffBotSystemHardware"), "Got write command %.5f for '%s'!", hw_commands_[i],
             info_.joints[i].name.c_str());
-        pi4_esp32_pubsub_->Publish_Speed(); // publish to topic
+        pi4_esp32_publisher_->Publish_Speed(); // publish to topic
       }
     }
 #else
