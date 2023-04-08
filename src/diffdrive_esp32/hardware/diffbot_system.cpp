@@ -28,11 +28,13 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/int32.hpp"
+using std::placeholders::_1;
 //// #include <rclcpp_components/register_node_macro.hpp>
 
 namespace ros2_control_demo_example_2
 {
 
+#ifdef ANTONIO
   Pi4_Esp32_Publisher::Pi4_Esp32_Publisher() : Node("pinecone_pi4_publisher")
   {
     publisher_ = this->create_publisher<std_msgs::msg::Int32>("right_wheel_speed", 10);
@@ -43,8 +45,20 @@ namespace ros2_control_demo_example_2
     static int32_t count = 0;
     std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
     msg->data = count++;
-    publisher_->publish(std::move(msg));   // auto-inc
+    publisher_->publish(std::move(msg));
   }
+
+  Pi4_Esp32_Subscriber::Pi4_Esp32_Subscriber() : Node("pi4_esp32_subscriber")
+  {
+    subscriber_ = this->create_subscription<std_msgs::msg::Int32>(
+        "right_wheel_thingy", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
+  }
+
+  void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const
+  {
+    RCLCPP_INFO(this->get_logger(), "I heard: '%d'", msg->data);
+  }
+#endif
 
   hardware_interface::CallbackReturn DiffBotSystemHardware::on_init(
       const hardware_interface::HardwareInfo &info)
@@ -60,8 +74,12 @@ namespace ros2_control_demo_example_2
     base_y_ = 0.0;
     base_theta_ = 0.0;
 
+#ifdef ANTONIO
     // Fire up the publisher node
-    pi4_esp32_publisher_ = std::make_shared<Pi4_Esp32_Publisher>(); 
+    pi4_esp32_publisher_ = std::make_shared<Pi4_Esp32_Publisher>();
+    // Fire up the subscriber node
+    pi4_esp32_subscriber_ = std::make_shared<Pi4_Esp32_Subscriber>();
+#endif
 
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
     {

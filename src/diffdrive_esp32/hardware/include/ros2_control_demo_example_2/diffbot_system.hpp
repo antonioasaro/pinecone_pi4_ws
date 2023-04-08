@@ -1,3 +1,4 @@
+#define ANTONIO
 // Copyright 2021 ros2_control Development Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,69 +34,88 @@
 #include "ros2_control_demo_example_2/visibility_control.h"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/int32.hpp"
+using std::placeholders::_1;
 
 namespace ros2_control_demo_example_2
 {
 
-// The node definition for the publisher to talk to micro-ROS agent
-class Pi4_Esp32_Publisher : public rclcpp::Node
-{
+#ifdef ANTONIO
+  // The node definition for the publisher to talk to micro-ROS agent
+  class Pi4_Esp32_Publisher : public rclcpp::Node
+  {
   public:
     Pi4_Esp32_Publisher();
     void Publish_Speed();
 
   private:
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_;
-};
+  };
 
-class DiffBotSystemHardware : public hardware_interface::SystemInterface
-{
-public:
-  RCLCPP_SHARED_PTR_DEFINITIONS(DiffBotSystemHardware);
+  class Pi4_Esp32_Subscriber : public rclcpp::Node
+  {
+  public:
+    Pi4_Esp32_Subscriber();
+    void Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const;
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  hardware_interface::CallbackReturn on_init(
-    const hardware_interface::HardwareInfo & info) override;
+  private:
+    rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr subscriber_;
+  };
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
+#endif
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
+  class DiffBotSystemHardware : public hardware_interface::SystemInterface
+  {
+  public:
+    RCLCPP_SHARED_PTR_DEFINITIONS(DiffBotSystemHardware);
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  hardware_interface::CallbackReturn on_activate(
-    const rclcpp_lifecycle::State & previous_state) override;
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    hardware_interface::CallbackReturn on_init(
+        const hardware_interface::HardwareInfo &info) override;
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  hardware_interface::CallbackReturn on_deactivate(
-    const rclcpp_lifecycle::State & previous_state) override;
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  hardware_interface::return_type read(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
-  ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
-  hardware_interface::return_type write(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    hardware_interface::CallbackReturn on_activate(
+        const rclcpp_lifecycle::State &previous_state) override;
 
-  // Make the publisher node a member
-  std::shared_ptr<Pi4_Esp32_Publisher> pi4_esp32_publisher_;
- 
-private:
-  // Parameters for the DiffBot simulation
-  double hw_start_sec_;
-  double hw_stop_sec_;
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    hardware_interface::CallbackReturn on_deactivate(
+        const rclcpp_lifecycle::State &previous_state) override;
 
-  // Store the command for the simulated robot
-  std::vector<double> hw_commands_;
-  std::vector<double> hw_positions_;
-  std::vector<double> hw_velocities_;
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    hardware_interface::return_type read(
+        const rclcpp::Time &time, const rclcpp::Duration &period) override;
 
-  // Store the wheeled robot position
-  double base_x_, base_y_, base_theta_;
-};
+    ROS2_CONTROL_DEMO_EXAMPLE_2_PUBLIC
+    hardware_interface::return_type write(
+        const rclcpp::Time &time, const rclcpp::Duration &period) override;
 
-}  // namespace ros2_control_demo_example_2
+#ifdef ANTONIO
+    // Make the publisher node a member
+    std::shared_ptr<Pi4_Esp32_Publisher> pi4_esp32_publisher_;
 
-#endif  // ROS2_CONTROL_DEMO_EXAMPLE_2__DIFFBOT_SYSTEM_HPP_
+    // Make the subscriber node a member
+    std::shared_ptr<Pi4_Esp32_Subscriber> pi4_esp32_subscriber_;
+#endif
+
+  private:
+    // Parameters for the DiffBot simulation
+    double hw_start_sec_;
+    double hw_stop_sec_;
+
+    // Store the command for the simulated robot
+    std::vector<double> hw_commands_;
+    std::vector<double> hw_positions_;
+    std::vector<double> hw_velocities_;
+
+    // Store the wheeled robot position
+    double base_x_, base_y_, base_theta_;
+  };
+
+} // namespace ros2_control_demo_example_2
+
+#endif // ROS2_CONTROL_DEMO_EXAMPLE_2__DIFFBOT_SYSTEM_HPP_
