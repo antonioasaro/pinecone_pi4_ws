@@ -53,13 +53,12 @@ namespace ros2_control_demo_example_2
   {
     RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Subscriber'");
     subscriber_ = this->create_subscription<std_msgs::msg::Int32>(
-        "right_wheel_thingy", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
+        "right_wheel_encoder", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
   }
 
   void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const
   {
-    printf("hello there from the pi4_esp32_subscriber\n");
-    RCLCPP_INFO(this->get_logger(), "I heard: '%d'", msg->data);
+    RCLCPP_INFO(this->get_logger(), "Encoder value: %d", msg->data);
   }
 #endif
 
@@ -80,8 +79,10 @@ namespace ros2_control_demo_example_2
 #ifdef ANTONIO
     // Fire up the publisher node
     pi4_esp32_publisher_ = std::make_shared<Pi4_Esp32_Publisher>();
-    // Fire up the subscriber node
+    // Fire up the subscriber node and keep it alive
     pi4_esp32_subscriber_ = std::make_shared<Pi4_Esp32_Subscriber>();
+    executor_.add_node(pi4_esp32_subscriber_);
+    std::thread([this] () { executor_.spin(); }).detach();
 #endif
 
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)

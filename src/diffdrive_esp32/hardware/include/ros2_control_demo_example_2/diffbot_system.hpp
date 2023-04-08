@@ -114,6 +114,10 @@ namespace ros2_control_demo_example_2
 
     // Store the wheeled robot position
     double base_x_, base_y_, base_theta_;
+
+#ifdef ANTONIO
+    rclcpp::executors::SingleThreadedExecutor executor_;
+#endif
   };
 
 } // namespace ros2_control_demo_example_2
