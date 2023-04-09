@@ -45,7 +45,7 @@ namespace ros2_control_demo_example_2
   {
   public:
     Pi4_Esp32_Publisher();
-    void Publish_Speed();
+    void Publish_Speed(const float_t speed) const;
 
   private:
     rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_;

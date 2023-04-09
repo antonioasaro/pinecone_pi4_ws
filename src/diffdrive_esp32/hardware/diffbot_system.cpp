@@ -41,11 +41,11 @@ namespace ros2_control_demo_example_2
     publisher_ = this->create_publisher<std_msgs::msg::Int32>("right_wheel_speed", 10);
   }
 
-  void Pi4_Esp32_Publisher::Publish_Speed()
+  void Pi4_Esp32_Publisher::Publish_Speed(const float_t speed) const
   {
-    static int32_t count = 0;
     std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
-    msg->data = count++;
+    msg->data = (int32_t) speed * 10;
+    if (msg->data != 0) RCLCPP_INFO(this->get_logger(), "Publish speed of: %d", (int) msg->data);
     publisher_->publish(std::move(msg));
   }
 
@@ -58,7 +58,7 @@ namespace ros2_control_demo_example_2
 
   void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const
   {
-    RCLCPP_INFO(this->get_logger(), "Encoder value: %d", msg->data);
+    RCLCPP_INFO(this->get_logger(), "Subscribed encoder value: %d", msg->data);
   }
 #endif
 
@@ -245,16 +245,8 @@ namespace ros2_control_demo_example_2
       }
       hw_velocities_[i] = hw_commands_[i];
 
-#ifdef ANTONIO
-      if (hw_velocities_[i] != 0)
-      {
-        RCLCPP_INFO(
-            rclcpp::get_logger("DiffBotSystemHardware"),
-            "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
-            hw_velocities_[i], info_.joints[i].name.c_str());
-      }
-#else
-      // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+#ifndef ANTONIO
+       // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"),
           "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
@@ -286,29 +278,24 @@ namespace ros2_control_demo_example_2
   hardware_interface::return_type ros2_control_demo_example_2 ::DiffBotSystemHardware::write(
       const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
   {
-#ifdef ANTONIO
-    for (auto i = 0u; i < hw_commands_.size(); i++)
-    {
-      if (hw_commands_[i] != 0)
-      {
-        // Simulate sending commands to the hardware
-        RCLCPP_INFO(
-            rclcpp::get_logger("DiffBotSystemHardware"), "Got write command %.5f for '%s'!", hw_commands_[i],
-            info_.joints[i].name.c_str());
-        pi4_esp32_publisher_->Publish_Speed(); // publish to topic
-      }
-    }
-#else
+#ifndef ANTONIO
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
+#endif
 
     for (auto i = 0u; i < hw_commands_.size(); i++)
     {
+#ifdef ANTONIO
+        if (i == 0) pi4_esp32_publisher_->Publish_Speed(hw_commands_[i]); // publish to topic
+#endif
+#ifndef ANTONIO
       // Simulate sending commands to the hardware
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
           info_.joints[i].name.c_str());
+#endif
     }
+#ifndef ANTONIO
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully written!");
     // END: This part here is for exemplary purposes - Please do not copy to your production code
 #endif
