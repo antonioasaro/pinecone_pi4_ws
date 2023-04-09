@@ -28,6 +28,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/int32.hpp"
+#include <cmath>
 using std::placeholders::_1;
 //// #include <rclcpp_components/register_node_macro.hpp>
 
@@ -44,8 +45,9 @@ namespace ros2_control_demo_example_2
   void Pi4_Esp32_Publisher::Publish_Speed(const float_t speed) const
   {
     std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
-    msg->data = (int32_t) speed * 10;
-    if (msg->data != 0) RCLCPP_INFO(this->get_logger(), "Publish speed of: %d", (int) msg->data);
+    msg->data = (int32_t)speed * 10;
+    if (msg->data != 0)
+      RCLCPP_INFO(this->get_logger(), "Publish speed of: %d", (int)msg->data);
     publisher_->publish(std::move(msg));
   }
 
@@ -60,12 +62,12 @@ namespace ros2_control_demo_example_2
   void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg)
   {
     RCLCPP_INFO(this->get_logger(), "Subscribed encoder value: %d", msg->data);
-    encoder_count_ = (int32_t) msg->data;
+    encoder_count_ = (int32_t)msg->data;
   }
 
   int32_t Pi4_Esp32_Subscriber::Encoder_Read()
   {
-    return(encoder_count_);
+    return (encoder_count_);
   }
 #endif
 
@@ -89,7 +91,9 @@ namespace ros2_control_demo_example_2
     // Fire up the subscriber node and keep it alive
     pi4_esp32_subscriber_ = std::make_shared<Pi4_Esp32_Subscriber>();
     executor_.add_node(pi4_esp32_subscriber_);
-    std::thread([this] () { executor_.spin(); }).detach();
+    std::thread([this]()
+                { executor_.spin(); })
+        .detach();
 #endif
 
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
@@ -237,21 +241,52 @@ namespace ros2_control_demo_example_2
   {
     double radius = 0.02; // radius of the wheels
     double dist_w = 0.1;  // distance between the wheels
+#ifdef ANTONIO
+    double prev_pos;
+    static double wheel_pos = 0;
+#endif
     for (uint i = 0; i < hw_commands_.size(); i++)
     {
       // Simulate DiffBot wheels's movement as a first-order system
       // Update the joint status: this is a revolute joint without any limit.
       // Simply integrates
 #ifdef ANTONIO
-      hw_positions_[i] = pi4_esp32_subscriber_->Encoder_Read() / 100;
-      hw_velocities_[i] = hw_commands_[i];
-#else 
+#define COUNTS_PER_REV 1320
+
+      auto new_time = std::chrono::system_clock::now();
+      std::chrono::duration<double> diff = new_time - time_;
+      double deltasSeconds = diff.count();
+      time_ = new_time;
+
+      double rads_per_count = (2 * M_1_PI) / COUNTS_PER_REV;
+      int32_t encoder_count = pi4_esp32_subscriber_->Encoder_Read();
+      if (i == 1)
+      {
+        if (hw_velocities_[i] > 0)
+        {
+          RCLCPP_INFO(
+              rclcpp::get_logger("DiffBotSystemHardware"),
+              "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+              hw_velocities_[i], info_.joints[i].name.c_str());
+        }
+
+        prev_pos = wheel_pos;
+        wheel_pos = encoder_count * rads_per_count;
+        hw_positions_[i] = wheel_pos;
+        hw_velocities_[i] = (wheel_pos - prev_pos) / deltasSeconds;
+      }
+      else
+      {
+        hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+        hw_velocities_[i] = hw_commands_[i];
+      }
+#else
       hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
       hw_velocities_[i] = hw_commands_[i];
 #endif
 
 #ifndef ANTONIO
-       // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+      // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"),
           "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
@@ -291,7 +326,8 @@ namespace ros2_control_demo_example_2
     for (auto i = 0u; i < hw_commands_.size(); i++)
     {
 #ifdef ANTONIO
-        if (i == 0) pi4_esp32_publisher_->Publish_Speed(hw_commands_[i]); // publish to topic
+      if (i == 0)
+        pi4_esp32_publisher_->Publish_Speed(hw_commands_[i]); // publish to topic
 #endif
 #ifndef ANTONIO
       // Simulate sending commands to the hardware

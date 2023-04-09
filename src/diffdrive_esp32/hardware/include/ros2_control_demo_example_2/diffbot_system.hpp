@@ -118,6 +118,7 @@ namespace ros2_control_demo_example_2
     double base_x_, base_y_, base_theta_;
 
 #ifdef ANTONIO
+    std::chrono::time_point<std::chrono::system_clock> time_;
     rclcpp::executors::SingleThreadedExecutor executor_;
 #endif
   };
