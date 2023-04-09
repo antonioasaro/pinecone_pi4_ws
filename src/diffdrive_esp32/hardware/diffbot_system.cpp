@@ -52,13 +52,20 @@ namespace ros2_control_demo_example_2
   Pi4_Esp32_Subscriber::Pi4_Esp32_Subscriber() : Node("pi4_esp32_subscriber")
   {
     RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Subscriber'");
+    encoder_count_ = 0;
     subscriber_ = this->create_subscription<std_msgs::msg::Int32>(
         "right_wheel_encoder", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
   }
 
-  void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const
+  void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg)
   {
     RCLCPP_INFO(this->get_logger(), "Subscribed encoder value: %d", msg->data);
+    encoder_count_ = (int32_t) msg->data;
+  }
+
+  int32_t Pi4_Esp32_Subscriber::Encoder_Read()
+  {
+    return(encoder_count_);
   }
 #endif
 
@@ -235,15 +242,13 @@ namespace ros2_control_demo_example_2
       // Simulate DiffBot wheels's movement as a first-order system
       // Update the joint status: this is a revolute joint without any limit.
       // Simply integrates
-      if (i == 0)
-      {
-        hw_positions_[i] = 0; // hw_positions_[1] + period.seconds() * hw_commands_[i] / 100;
-      }
-      else
-      {
-        hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
-      }
+#ifdef ANTONIO
+      hw_positions_[i] = pi4_esp32_subscriber_->Encoder_Read() / 100;
       hw_velocities_[i] = hw_commands_[i];
+#else 
+      hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+      hw_velocities_[i] = hw_commands_[i];
+#endif
 
 #ifndef ANTONIO
        // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code

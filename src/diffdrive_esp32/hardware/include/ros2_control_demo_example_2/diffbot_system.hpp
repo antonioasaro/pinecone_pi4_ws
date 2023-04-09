@@ -55,9 +55,11 @@ namespace ros2_control_demo_example_2
   {
   public:
     Pi4_Esp32_Subscriber();
-    void Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg) const;
+    int32_t Encoder_Read();
 
   private:
+    int32_t encoder_count_;
+    void Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg);
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr subscriber_;
   };
 
