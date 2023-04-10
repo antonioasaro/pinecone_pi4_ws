@@ -244,6 +244,7 @@ namespace ros2_control_demo_example_2
 #ifdef ANTONIO
     double prev_pos;
     static double wheel_pos = 0;
+    static double wheel_vel = 0;
 #endif
     for (uint i = 0; i < hw_commands_.size(); i++)
     {
@@ -268,18 +269,21 @@ namespace ros2_control_demo_example_2
               rclcpp::get_logger("DiffBotSystemHardware"),
               "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
               hw_velocities_[i], info_.joints[i].name.c_str());
+
+          prev_pos = wheel_pos;
+          wheel_pos = encoder_count * rads_per_count;
+          wheel_vel = (wheel_pos - prev_pos) / deltasSeconds;
+          RCLCPP_INFO(
+              rclcpp::get_logger("DiffBotSystemHardware"),
+              "wheel_pos %.5f and wheel_vel %.5f for '%s'!", wheel_pos,
+              wheel_vel, info_.joints[i].name.c_str());
         }
 
-        prev_pos = wheel_pos;
-        wheel_pos = encoder_count * rads_per_count;
-        hw_positions_[i] = wheel_pos;
-        hw_velocities_[i] = (wheel_pos - prev_pos) / deltasSeconds;
+        ////       hw_positions_[i] = wheel_pos;
+        ////       hw_velocities_[i] = (wheel_pos - prev_pos) / deltasSeconds;
       }
-      else
-      {
-        hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
-        hw_velocities_[i] = hw_commands_[i];
-      }
+      hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+      hw_velocities_[i] = hw_commands_[i];
 #else
       hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
       hw_velocities_[i] = hw_commands_[i];
