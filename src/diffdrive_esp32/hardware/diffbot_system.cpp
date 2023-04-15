@@ -282,7 +282,7 @@ namespace ros2_control_demo_example_2
         ////       hw_positions_[i] = wheel_pos;
         ////       hw_velocities_[i] = (wheel_pos - prev_pos) / deltasSeconds;
       }
-      hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+      hw_positions_[i] = hw_positions_[i] + period.seconds() * hw_commands_[i];
       hw_velocities_[i] = hw_commands_[i];
 #else
       hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
