@@ -45,9 +45,8 @@ namespace ros2_control_demo_example_2
   void Pi4_Esp32_Publisher::Publish_Speed(const float_t speed) const
   {
     std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
-    msg->data = (int32_t)speed * 10;
-    if (msg->data != 0)
-      RCLCPP_INFO(this->get_logger(), "Publish speed of: %d", (int)msg->data);
+    msg->data = (int32_t) (speed * 1000);
+    // if (msg->data != 0) RCLCPP_INFO(this->get_logger(), "Publish speed of: %d", (int)msg->data);
     publisher_->publish(std::move(msg));
   }
 
@@ -61,7 +60,7 @@ namespace ros2_control_demo_example_2
 
   void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg)
   {
-    RCLCPP_INFO(this->get_logger(), "Subscribed encoder value: %d", msg->data);
+////    RCLCPP_INFO(this->get_logger(), "Subscribed encoder value: %d", msg->data);
     encoder_count_ = (int32_t)msg->data;
   }
 
@@ -265,18 +264,18 @@ namespace ros2_control_demo_example_2
       {
         if (hw_velocities_[i] > 0)
         {
-          RCLCPP_INFO(
-              rclcpp::get_logger("DiffBotSystemHardware"),
-              "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
-              hw_velocities_[i], info_.joints[i].name.c_str());
+          // RCLCPP_INFO(
+          //     rclcpp::get_logger("DiffBotSystemHardware"),
+          //     "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+          //     hw_velocities_[i], info_.joints[i].name.c_str());
 
           prev_pos = wheel_pos;
           wheel_pos = encoder_count * rads_per_count;
           wheel_vel = (wheel_pos - prev_pos) / deltasSeconds;
-          RCLCPP_INFO(
-              rclcpp::get_logger("DiffBotSystemHardware"),
-              "wheel_pos %.5f and wheel_vel %.5f for '%s'!", wheel_pos,
-              wheel_vel, info_.joints[i].name.c_str());
+          // RCLCPP_INFO(
+          //     rclcpp::get_logger("DiffBotSystemHardware"),
+          //     "wheel_pos %.5f and wheel_vel %.5f for '%s'!", wheel_pos,
+          //     wheel_vel, info_.joints[i].name.c_str());
         }
 
         ////       hw_positions_[i] = wheel_pos;
@@ -333,12 +332,13 @@ namespace ros2_control_demo_example_2
       if (i == 0)
         pi4_esp32_publisher_->Publish_Speed(hw_commands_[i]); // publish to topic
 #endif
-#ifndef ANTONIO
-      // Simulate sending commands to the hardware
+#ifdef ANTONIO
+      if (hw_commands_[i] != 0)
+#endif    
+      // Simulate sending commands to the hardware  
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
           info_.joints[i].name.c_str());
-#endif
     }
 #ifndef ANTONIO
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully written!");
