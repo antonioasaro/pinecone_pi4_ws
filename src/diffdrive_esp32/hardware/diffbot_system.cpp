@@ -28,6 +28,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/int32.hpp"
+#include "std_msgs/msg/int64.hpp"
 #include <cmath>
 using std::placeholders::_1;
 //// #include <rclcpp_components/register_node_macro.hpp>
@@ -39,14 +40,17 @@ namespace ros2_control_demo_example_2
   Pi4_Esp32_Publisher::Pi4_Esp32_Publisher() : Node("pi4_esp32_publisher")
   {
     RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Publisher'");
-    publisher_ = this->create_publisher<std_msgs::msg::Int32>("right_wheel_speed", 10);
+    publisher_ = this->create_publisher<std_msgs::msg::Int64>("wheel_speed", 10);
   }
 
-  void Pi4_Esp32_Publisher::Publish_Speed(const float_t speed) const
+  void Pi4_Esp32_Publisher::Publish_Speed(const float_t left_wheel_speed, const float_t right_wheel_speed) const
   {
-    std_msgs::msg::Int32::UniquePtr msg(new std_msgs::msg::Int32());
-    msg->data = (int32_t)(speed * 1000);
-    // if (msg->data != 0) RCLCPP_INFO(this->get_logger(), "Publish speed of: %d", (int)msg->data);
+    std_msgs::msg::Int64::UniquePtr msg(new std_msgs::msg::Int64());
+    int64_t lws = ((int64_t)(left_wheel_speed * 1000)) & 0xFFFFFFFF;
+    int64_t rws = ((int64_t)(right_wheel_speed * 1000)) & 0xFFFFFFFF;
+    msg->data = (rws << 32) | lws;
+    // int32_t rlws = (int32_t) ((msg->data >> 0)  & 0xFFFFFFFF);
+    // int32_t rrws = (int32_t) ((msg->data >> 32) & 0xFFFFFFFF);
     publisher_->publish(std::move(msg));
   }
 
@@ -268,7 +272,7 @@ namespace ros2_control_demo_example_2
         wheel_vel = (wheel_pos - prev_pos) / deltasSeconds;
         hw_positions_[i] = wheel_pos;
         hw_velocities_[i] = hw_commands_[i];
-        if (hw_commands_[i] > 0)
+        if (hw_commands_[i] != 0)
         {
           RCLCPP_INFO(
               rclcpp::get_logger("DiffBotSystemHardware"),
@@ -326,29 +330,21 @@ namespace ros2_control_demo_example_2
   hardware_interface::return_type ros2_control_demo_example_2 ::DiffBotSystemHardware::write(
       const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
   {
-#ifndef ANTONIO
+#ifdef ANTONIO
+    pi4_esp32_publisher_->Publish_Speed(hw_commands_[0], hw_commands_[1]); // publish to topic
+#else
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Writing...");
-#endif
-
     for (auto i = 0u; i < hw_commands_.size(); i++)
     {
-#ifdef ANTONIO
-      if (i == 0)
-        pi4_esp32_publisher_->Publish_Speed(hw_commands_[i]); // publish to topic
-#endif
-#ifndef ANTONIO
-        // Simulate sending commands to the hardware
-        RCLCPP_INFO(
-            rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
-            info_.joints[i].name.c_str());
-#endif
+      // Simulate sending commands to the hardware
+      RCLCPP_INFO(
+          rclcpp::get_logger("DiffBotSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
+          info_.joints[i].name.c_str());
     }
-#ifndef ANTONIO
     RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Joints successfully written!");
     // END: This part here is for exemplary purposes - Please do not copy to your production code
 #endif
-
     return hardware_interface::return_type::OK;
   }
 } // namespace ros2_control_demo_example_2

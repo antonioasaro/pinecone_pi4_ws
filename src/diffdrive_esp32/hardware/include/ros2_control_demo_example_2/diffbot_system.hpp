@@ -34,6 +34,7 @@
 #include "ros2_control_demo_example_2/visibility_control.h"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/int32.hpp"
+#include "std_msgs/msg/int64.hpp"
 using std::placeholders::_1;
 
 namespace ros2_control_demo_example_2
@@ -45,10 +46,10 @@ namespace ros2_control_demo_example_2
   {
   public:
     Pi4_Esp32_Publisher();
-    void Publish_Speed(const float_t speed) const;
+    void Publish_Speed(const float_t left_wheel_speed, const float_t right_wheel_speed) const;
 
   private:
-    rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr publisher_;
+    rclcpp::Publisher<std_msgs::msg::Int64>::SharedPtr publisher_;
   };
 
   class Pi4_Esp32_Subscriber : public rclcpp::Node
