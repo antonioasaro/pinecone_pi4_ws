@@ -40,7 +40,7 @@ namespace ros2_control_demo_example_2
   Pi4_Esp32_Publisher::Pi4_Esp32_Publisher() : Node("pi4_esp32_publisher")
   {
     RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Publisher'");
-    publisher_ = this->create_publisher<std_msgs::msg::Int64>("wheel_speed", 10);
+    publisher_ = this->create_publisher<std_msgs::msg::Int64>("wheel_speeds", 10);
   }
 
   void Pi4_Esp32_Publisher::Publish_Speed(const float_t left_wheel_speed, const float_t right_wheel_speed) const
@@ -49,8 +49,6 @@ namespace ros2_control_demo_example_2
     int64_t lws = ((int64_t)(left_wheel_speed * 1000)) & 0xFFFFFFFF;
     int64_t rws = ((int64_t)(right_wheel_speed * 1000)) & 0xFFFFFFFF;
     msg->data = (rws << 32) | lws;
-    // int32_t rlws = (int32_t) ((msg->data >> 0)  & 0xFFFFFFFF);
-    // int32_t rrws = (int32_t) ((msg->data >> 32) & 0xFFFFFFFF);
     publisher_->publish(std::move(msg));
   }
 
@@ -58,19 +56,24 @@ namespace ros2_control_demo_example_2
   {
     RCLCPP_INFO(this->get_logger(), "Starting 'Pi4_Esp32_Subscriber'");
     encoder_count_ = 0;
-    subscriber_ = this->create_subscription<std_msgs::msg::Int32>(
-        "right_wheel_encoder", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
+    subscriber_ = this->create_subscription<std_msgs::msg::Int64>(
+        "wheel_encoders", 10, std::bind(&Pi4_Esp32_Subscriber::Encoder_Callback, this, _1));
   }
 
-  void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int32::SharedPtr msg)
+  void Pi4_Esp32_Subscriber::Encoder_Callback(const std_msgs::msg::Int64::SharedPtr msg)
   {
     ////    RCLCPP_INFO(this->get_logger(), "Subscribed encoder value: %d", msg->data);
-    encoder_count_ = (int32_t)msg->data;
+    encoder_count_ = (int32_t)((msg->data >> 0) & 0xFFFFFFFF);
+    right_encoder_count_ = (int32_t)((msg->data >> 32) & 0xFFFFFFFF);
   }
 
   int32_t Pi4_Esp32_Subscriber::Encoder_Read()
   {
     return (encoder_count_);
+  }
+  int32_t Pi4_Esp32_Subscriber::Right_Encoder_Read()
+  {
+    return (right_encoder_count_);
   }
 #endif
 
@@ -243,11 +246,20 @@ namespace ros2_control_demo_example_2
       const rclcpp::Time & /*time*/, const rclcpp::Duration &period)
   {
 #ifdef ANTONIO
-    double prev_pos;
-    static double wheel_pos = 0;
-    static double wheel_vel = 0;
-    double radius = 0.033; // radius of the wheels
-    double dist_w = 0.297; // distance between the wheels
+#define COUNTS_PER_REV 1320
+    double radius = 0.033;
+    double dist_w = 0.297;
+    double prev_pos[2];
+    static double wheel_pos[2] = {0, 0};
+    static double wheel_vel[2] = {0, 0};
+    int32_t encoder_count[2];
+    auto new_time = std::chrono::system_clock::now();
+    std::chrono::duration<double> diff = new_time - time_;
+    double deltasSeconds = diff.count();
+
+    time_ = new_time;
+    encoder_count[0] = pi4_esp32_subscriber_->Encoder_Read();
+    encoder_count[1] = pi4_esp32_subscriber_->Right_Encoder_Read();
 #else
     double radius = 0.02; // radius of the wheels
     double dist_w = 0.1;  // distance between the wheels
@@ -258,46 +270,35 @@ namespace ros2_control_demo_example_2
       // Update the joint status: this is a revolute joint without any limit.
       // Simply integrates
 #ifdef ANTONIO
-#define COUNTS_PER_REV 1320
-      auto new_time = std::chrono::system_clock::now();
-      std::chrono::duration<double> diff = new_time - time_;
-      double deltasSeconds = diff.count();
-      time_ = new_time;
-      int32_t encoder_count = pi4_esp32_subscriber_->Encoder_Read();
-
-      if (i == 1)
-      {
-        prev_pos = wheel_pos;
-        wheel_pos = ((float)encoder_count / COUNTS_PER_REV) * (2 * M_1_PI * radius) * 1000;
-        wheel_vel = (wheel_pos - prev_pos) / deltasSeconds;
-        hw_positions_[i] = wheel_pos;
+        prev_pos[i] = wheel_pos[i];
+        wheel_pos[i] = ((float)encoder_count[i] / COUNTS_PER_REV) * (2 * M_1_PI * radius) * 1000;
+        wheel_vel[i] = (wheel_pos[i] - prev_pos[i]) / deltasSeconds;
+        hw_positions_[i] = wheel_pos[i];
         hw_velocities_[i] = hw_commands_[i];
         if (hw_commands_[i] != 0)
         {
           RCLCPP_INFO(
               rclcpp::get_logger("DiffBotSystemHardware"),
-              "Time %f encoder %d wheel_pos %.5f and wheel_vel %.5f for '%s'!", deltasSeconds, encoder_count,
-              wheel_pos, wheel_vel, info_.joints[i].name.c_str());
+              "Time %f encoder %d wheel_pos %.5f and wheel_vel %.5f for '%s'!", deltasSeconds, encoder_count[i],
+              wheel_pos[i], wheel_vel[i], info_.joints[i].name.c_str());
         }
-      }
-      else
-      {
-        hw_positions_[i] = hw_positions_[i] + period.seconds() * hw_commands_[i];
-        hw_velocities_[i] = hw_commands_[i];
-      }
-      if (hw_commands_[i] > 0)
-      {
-        RCLCPP_INFO(
-            rclcpp::get_logger("DiffBotSystemHardware"),
-            "Updated position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
-            hw_velocities_[i], info_.joints[i].name.c_str());
-      }
+      // }
+      // else
+      // {
+      //   hw_positions_[i] = hw_positions_[i] + period.seconds() * hw_commands_[i];
+      //   hw_velocities_[i] = hw_commands_[i];
+      // }
+      // if (hw_commands_[i] > 0)
+      // {
+      //   RCLCPP_INFO(
+      //       rclcpp::get_logger("DiffBotSystemHardware"),
+      //       "Updated position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+      //       hw_velocities_[i], info_.joints[i].name.c_str());
+      // }
 #else
       hw_positions_[i] = hw_positions_[i] + period.seconds() * hw_commands_[i];
       hw_velocities_[i] = hw_commands_[i];
-#endif
 
-#ifndef ANTONIO
       // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
       RCLCPP_INFO(
           rclcpp::get_logger("DiffBotSystemHardware"),
