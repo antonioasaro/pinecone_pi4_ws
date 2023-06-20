@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <link name="arm_base">
     <inertial>
@@ -21,21 +21,28 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/arm_base.stl" />
+
+   
+          <cylinder radius="0.05" length="0.04"/>  
+          <!--   
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/arm_base.dae" />
+-->
       </geometry>
-      <material name="green"/>
+      <material name="green" />
     </visual>
     <collision>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-     	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/arm_base.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/arm_base.stl" />
       </geometry>
     </collision>
-</link>
+  </link>
 
-<link name="bicep">
+  <link name="bicep">
     <inertial>
       <origin
         xyz="0.12821 3.5589E-06 0.052492"
@@ -55,16 +62,18 @@
         xyz="0 0 0"
         rpy="0 -1.5708 0" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/bicep.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/bicep.stl" />
       </geometry>
-      <material name="green"/>
+      <material name="green" />
     </visual>
     <collision>
       <origin
         xyz="0 0 0"
         rpy="0 -1.5708 0" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/bicep.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/bicep.stl" />
       </geometry>
     </collision>
   </link>
@@ -91,21 +100,23 @@
         xyz="0 0 0.13522"
         rpy="3.14 0 1.5708" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
       </geometry>
-      <material name="green"/>
+      <material name="green" />
     </visual>
     <collision>
       <origin
         xyz="0 0 0.13522"
         rpy="3.14 0 1.5708" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
       </geometry>
     </collision>
   </link>
 
- <link name="elbow">
+  <link name="elbow">
     <inertial>
       <origin
         xyz="-0.11109 1.1476E-08 0.046469"
@@ -125,21 +136,23 @@
         xyz="0.0 0.05163 0.20994"
         rpy="0 -1.5708 0" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/elbow.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/elbow.stl" />
       </geometry>
-      <material name="green"/>
+      <material name="green" />
     </visual>
     <collision>
       <origin
         xyz="0.0 0.05163 0.20994"
         rpy="0 -1.5708 0" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/elbow.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/elbow.stl" />
       </geometry>
     </collision>
   </link>
 
-<link
+  <link
     name="top_wrist">
     <inertial>
       <origin
@@ -160,58 +173,60 @@
         xyz="0 0 0.13522"
         rpy="3.14 0 1.5708" />
       <geometry>
-     	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
       </geometry>
-      <material name="green"/>
+      <material name="green" />
     </visual>
     <collision>
       <origin
         xyz="0 0 0.13522"
         rpy="3.14 0 1.5708" />
       <geometry>
-      	<mesh filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
+        <mesh
+          filename="file:/home/antonio/Documents/Projects/pinecone_pi4_ws/src/articubot_one/meshes/wrist.stl" />
       </geometry>
     </collision>
   </link>
 
-<!--######################################################################-->
-<joint name="arm_base_joint" type="continuous">
-  <axis xyz="0 0 1"/>
-  <parent link="base_link"/>
-  <child link="arm_base"/>
-  <origin xyz="-0.16 0 0.12" rpy="0 0 0"/>
-</joint>
+  <!--######################################################################-->
+  <joint name="arm_base_joint" type="continuous">
+    <axis xyz="0 0 1" />
+    <parent link="base_link" />
+    <child link="arm_base" />
+    <origin xyz="-0.16 0 0.12" rpy="0 0 0" />
+  </joint>
 
-<joint name="shoulder_joint" type="continuous">
-  <axis xyz="0 1 0"/>
-  <parent link="arm_base"/>
-  <child link="bicep"/>
-  <origin rpy="0 0 1.5708" xyz="-0.05166 0.0 0.20271"/>
-</joint>
+  <joint name="shoulder_joint" type="continuous">
+    <axis xyz="0 1 0" />
+    <parent link="arm_base" />
+    <child link="bicep" />
+    <origin rpy="0 0 1.5708" xyz="-0.05166 0.0 0.20271" />
+  </joint>
 
-<joint name="bottom_wrist_joint" type="continuous">
-  <axis xyz="0 1 0"/>
-  <parent link="bicep"/>
-  <child link="bottom_wrist"/>
-  <origin rpy="0 0 0" xyz="0.0 -0.05194 0.269"/>
-</joint>
+  <joint name="bottom_wrist_joint" type="continuous">
+    <axis xyz="0 1 0" />
+    <parent link="bicep" />
+    <child link="bottom_wrist" />
+    <origin rpy="0 0 0" xyz="0.0 -0.05194 0.269" />
+  </joint>
 
-<joint name="elbow_joint" type="continuous">
-  <axis xyz="0 0 1"/>
-  <parent link="bottom_wrist"/>
-  <child link="elbow"/>
-  <origin rpy="0 0 0" xyz="0.0 0 0.13522"/>
-</joint>
+  <joint name="elbow_joint" type="continuous">
+    <axis xyz="0 0 1" />
+    <parent link="bottom_wrist" />
+    <child link="elbow" />
+    <origin rpy="0 0 0" xyz="0.0 0 0.13522" />
+  </joint>
 
-<joint name="top_wrist_joint" type="continuous">
-  <axis xyz="0 1 0"/>
-  <parent link="elbow"/>
-  <child link="top_wrist"/>
-  <origin rpy="0 0 0" xyz="0.0 0 0.20994"/>
-</joint>
+  <joint name="top_wrist_joint" type="continuous">
+    <axis xyz="0 1 0" />
+    <parent link="elbow" />
+    <child link="top_wrist" />
+    <origin rpy="0 0 0" xyz="0.0 0 0.20994" />
+  </joint>
 
 
-<!--######################################################################-->
+  <!--######################################################################-->
   <gazebo reference="arm_base">
     <material>Gazebo/Green</material>
   </gazebo>
@@ -228,15 +243,22 @@
     <material>Gazebo/Green</material>
   </gazebo>
 
-<!--
+
   <gazebo>
     <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
-      <jointName>arm_base_joint, shoulder_joint, bottom_wrist_joint, elbow_joint, bottom_wrist_joint</jointName>
+      <update_rate>30</update_rate>
+      <joint_name>arm_base_joint</joint_name>
+      <joint_name>shoulder_joint</joint_name>
+      <joint_name>bottom_wrist_joint</joint_name>
+      <joint_name>elbow_joint</joint_name>
+      <joint_name>bottom_wrist_joint</joint_name>
+      <!--
+      -->
     </plugin>
   </gazebo>
--->
+  
 
-<!--######################################################################-->
+  <!--######################################################################-->
 
 
 </robot>

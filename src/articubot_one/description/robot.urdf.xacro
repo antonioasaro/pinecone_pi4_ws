@@ -15,9 +15,10 @@
     <xacro:include filename="lidar.xacro" />
     <xacro:include filename="camera.xacro" />
     <xacro:include filename="imu.xacro" />
-    <xacro:include filename="robot_arm.urdf" />
-    <!-- <xacro:include filename="depth_camera.xacro" /> -->
+    <xacro:include filename="rrbot.urdf.xacro" />
 
-    <xacro:include filename="face.xacro" />
+    <!-- <xacro:include filename="robot_arm.xacro" />    -->
+    <!-- <xacro:include filename="depth_camera.xacro" /> -->
+    <!-- <xacro:include filename="face.xacro" />         -->
     
 </robot>
