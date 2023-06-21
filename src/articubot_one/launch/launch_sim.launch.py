@@ -67,6 +67,18 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
 
+    forward_posi_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["forward_posi"],
+    )
+
+    joint_traj_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_traj"],
+    )
+
 
     # Code for delaying a node (I haven't tested how effective it is)
     # 
@@ -94,5 +106,7 @@ def generate_launch_description():
         gazebo,
         spawn_entity,
         diff_drive_spawner,
-        joint_broad_spawner
+        joint_broad_spawner,
+        forward_posi_spawner,
+        joint_traj_spawner
     ])
