@@ -4,11 +4,11 @@
   <xacro:macro name="rrbot" params="parent prefix *origin">
 
   <!-- Constants for robot dimensions -->
-  <xacro:property name="mass" value="0.01" /> <!-- arbitrary value for mass -->
-  <xacro:property name="width" value="0.1" /> <!-- Square dimensions (widthxwidth) of beams -->
-  <xacro:property name="height1" value="2" /> <!-- Link 1 -->
-  <xacro:property name="height2" value="1" /> <!-- Link 2 -->
-  <xacro:property name="height3" value="1" /> <!-- Link 3 -->
+  <xacro:property name="mass" value="0.01" />        <!-- arbitrary value for mass -->
+  <xacro:property name="width" value="0.1" />        <!-- Square dimensions (widthxwidth) of beams -->
+  <xacro:property name="height1" value="1.00" />     <!-- Link 1 -->
+  <xacro:property name="height2" value="0.50" />     <!-- Link 2 -->
+  <xacro:property name="height3" value="0.50" />     <!-- Link 3 -->
   <xacro:property name="axel_offset" value="0.05" /> <!-- Space btw top of beam and the each joint -->
 
   <joint name="${prefix}base_joint" type="fixed">
@@ -79,7 +79,7 @@
         </inertial>
       </link>
 
-      <joint name="${prefix}joint2" type="fixed"> <!-- continuous">  -->
+      <joint name="${prefix}joint2" type="continuous"> 
         <parent link="${prefix}link1"/>
         <child link="${prefix}link2"/>
         <origin xyz="0 ${width} ${height2 - axel_offset*2}" rpy="0 0 0"/>
@@ -121,7 +121,7 @@
         <material>Gazebo/Orange</material>
       </gazebo>
       <gazebo reference="${prefix}link2">
-        <material>Gazebo/Blue</material>
+        <material>Gazebo/Purple</material>
       </gazebo>
 
   </xacro:macro>
