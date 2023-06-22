@@ -68,12 +68,12 @@ diff_cont:
     # angular.z.max_jerk: NAN
     # angular.z.min_jerk: NAN
 
-forward_posi:
-  ros__parameters:
-    joints:
-      - joint1
-      - joint2
-    interface_name: position
+# forward_posi:
+#  ros__parameters:
+#    joints:
+#      - joint1
+#      - joint2
+#    interface_name: position
 
 
 joint_traj:

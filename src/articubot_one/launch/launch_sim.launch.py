@@ -67,11 +67,11 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
 
-    forward_posi_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["forward_posi"],
-    )
+#    forward_posi_spawner = Node(
+#        package="controller_manager",
+#        executable="spawner",
+#        arguments=["forward_posi"],
+#    )
 
     joint_traj_spawner = Node(
         package="controller_manager",
@@ -107,6 +107,6 @@ def generate_launch_description():
         spawn_entity,
         diff_drive_spawner,
         joint_broad_spawner,
-        forward_posi_spawner,
+#        forward_posi_spawner,
         joint_traj_spawner
     ])
