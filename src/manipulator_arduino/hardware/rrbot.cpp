@@ -1,3 +1,4 @@
+#define ANTONIO
 // Copyright 2020 ros2_control Development Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -191,6 +192,8 @@ hardware_interface::CallbackReturn RRBotSystemPositionOnlyHardware::on_deactivat
 hardware_interface::return_type RRBotSystemPositionOnlyHardware::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
+#ifdef ANTONIO
+#else
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Reading...");
 
@@ -204,6 +207,7 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::read(
   }
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Joints successfully read!");
   // END: This part here is for exemplary purposes - Please do not copy to your production code
+#endif
 
   return hardware_interface::return_type::OK;
 }
@@ -211,6 +215,8 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::read(
 hardware_interface::return_type RRBotSystemPositionOnlyHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
+#ifdef ANTONIO
+#else
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Writing...");
 
@@ -224,6 +230,7 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::write(
   RCLCPP_INFO(
     rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Joints successfully written!");
   // END: This part here is for exemplary purposes - Please do not copy to your production code
+#endif
 
   return hardware_interface::return_type::OK;
 }

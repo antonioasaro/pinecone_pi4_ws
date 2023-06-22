@@ -85,6 +85,32 @@ def generate_launch_description():
         )
     )
 
+    forward_posi_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["forward_posi"],
+    )
+
+    delayed_forward_posi_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[forward_posi_spawner],
+        )
+    )
+
+    joint_traj_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_traj"],
+    )
+
+    delayed_joint_traj_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[joint_traj_spawner],
+        )
+    )
+
 
     # Code for delaying a node (I haven't tested how effective it is)
     # 
@@ -111,5 +137,7 @@ def generate_launch_description():
         twist_mux,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
-        delayed_joint_broad_spawner
+        delayed_joint_broad_spawner,
+        delayed_joint_traj_spawner,
+        delayed_forward_posi_spawner
     ])

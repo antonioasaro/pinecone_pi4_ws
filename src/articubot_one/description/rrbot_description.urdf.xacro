@@ -44,7 +44,7 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}joint1" type="fixed">
+    <joint name="${prefix}joint1" type="continuous">
       <parent link="arm_base_link"/>
       <child link="${prefix}link1"/>
       <origin xyz="0 ${width} ${height1 - axel_offset}" rpy="0 0 0"/>
