@@ -14,11 +14,11 @@
   <joint name="arm_base_joint" type="fixed">
     <xacro:insert_block name="origin" />
     <parent link="${parent}"/>
-    <child link="arm_base_link" />
+    <child link="base_link_arm" />
   </joint>
 
   <!-- Base Link -->
-  <link name="arm_base_link">
+  <link name="base_link_arm">
     <collision>
       <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
       <geometry>
@@ -45,7 +45,7 @@
     </link>
 
     <joint name="${prefix}joint1" type="continuous">
-      <parent link="arm_base_link"/>
+      <parent link="base_link_arm"/>
       <child link="${prefix}link1"/>
       <origin xyz="0 ${width} ${height1 - axel_offset}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
@@ -114,7 +114,7 @@
           </inertial>
         </link>
 
-      <gazebo reference="arm_base_link">
+      <gazebo reference="base_link_arm">
         <material>Gazebo/Green</material>
       </gazebo>
       <gazebo reference="${prefix}link1">

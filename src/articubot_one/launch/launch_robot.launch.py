@@ -85,30 +85,24 @@ def generate_launch_description():
         )
     )
 
-    forward_posi_spawner = Node(
+    forward_position_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["forward_posi"],
+        arguments=["forward_position_controller"],
     )
 
-    delayed_forward_posi_spawner = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=controller_manager,
-            on_start=[forward_posi_spawner],
-        )
+    position_goals = os.path.join(
+        get_package_share_directory("articubot_one"),
+        "config",
+        "rrbot_forward_position_publisher.yaml",
     )
 
-    joint_traj_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_traj"],
-    )
-
-    delayed_joint_traj_spawner = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=controller_manager,
-            on_start=[joint_traj_spawner],
-        )
+    publisher_forward_position_controller_spawer = Node(
+        package="ros2_controllers_test_nodes",
+        executable="publisher_forward_position_controller",
+        name="publisher_forward_position_controller",
+        parameters=[position_goals],
+        output="both",
     )
 
 
@@ -138,6 +132,6 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
-        delayed_joint_traj_spawner,
-        delayed_forward_posi_spawner
+        forward_position_controller_spawner,
+        publisher_forward_position_controller_spawer
     ])

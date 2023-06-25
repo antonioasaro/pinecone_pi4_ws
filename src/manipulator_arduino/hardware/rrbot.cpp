@@ -216,7 +216,9 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
 #ifdef ANTONIO
-#else
+static float prev_hw_command;
+if (prev_hw_command != (float) hw_commands_[0]) {
+#endif
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Writing...");
 
@@ -230,6 +232,9 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::write(
   RCLCPP_INFO(
     rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Joints successfully written!");
   // END: This part here is for exemplary purposes - Please do not copy to your production code
+#ifdef ANTONIO
+  prev_hw_command = (float) hw_commands_[0];
+}
 #endif
 
   return hardware_interface::return_type::OK;
