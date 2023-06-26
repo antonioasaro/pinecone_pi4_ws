@@ -74,14 +74,14 @@ diff_cont:
 forward_position_controller:
   ros__parameters:
     joints:
-      - joint1
+      # - joint1
       - joint2
     interface_name: position
 
 joint_traj:
   ros__parameters:
     joints:
-      - joint1
+      # - joint1
       - joint2
 
     command_interfaces:

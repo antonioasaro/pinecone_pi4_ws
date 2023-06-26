@@ -1,1 +1,0 @@
-  ros2 launch urdf_tutorial display.launch.py model:=robot_arm.xacro 
