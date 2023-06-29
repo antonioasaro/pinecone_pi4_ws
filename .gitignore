@@ -40,3 +40,4 @@ log/
 install/
 
 *.log
+abc.*
