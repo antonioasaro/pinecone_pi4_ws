@@ -399,4 +399,26 @@ Stephen Brawner (brawner@gmail.com)
       effort="300"
       velocity="1" />
   </joint>
+
+  <gazebo reference="base_link_arm">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="link1">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="link2">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="link3">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="link4">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="link51">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="link52">
+    <material>Gazebo/Grey</material>
+  </gazebo>
 </robot>

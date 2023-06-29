@@ -1,1 +1,0 @@
-ros2 launch urdf_tutorial display.launch.py model:=./src/robot_arm/urdf/robot_arm.urdf
