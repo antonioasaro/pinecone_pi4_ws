@@ -33,8 +33,9 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/base_link.STL" />
-        <!-- filename="package://robot_arm/meshes/base_link.STL" /> -->
+          filename="file://$(find robot_arm)/meshes/base_link.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/base_link.STL" /> -->
+          <!-- filename="package://robot_arm/meshes/base_link.STL" /> -->
       </geometry>
       <material
         name="">
@@ -48,8 +49,9 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/base_link.STL" />
-        <!-- filename="package://robot_arm/meshes/base_link.STL" /> -->
+          filename="file://$(find robot_arm)/meshes/base_link.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/base_link.STL" /> -->
+          <!-- filename="package://robot_arm/meshes/base_link.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -75,8 +77,9 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link1.STL" />
-        <!-- filename="package://robot_arm/meshes/link1.STL" /> -->
+          filename="file://$(find robot_arm)/meshes/link1.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link1.STL" /> -->
+          <!-- filename="package://robot_arm/meshes/link1.STL" /> -->
       </geometry>
       <material
         name="">
@@ -90,8 +93,9 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link1.STL" />
-        <!-- filename="package://robot_arm/meshes/link1.STL" /> -->
+          filename="file://$(find robot_arm)/meshes/link1.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link1.STL" /> -->
+          <!-- filename="package://robot_arm/meshes/link1.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -135,7 +139,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link2.STL" />
+          filename="file://$(find robot_arm)/meshes/link2.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link2.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link2.STL" /> -->
       </geometry>
       <material
@@ -150,7 +155,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link2.STL" />
+          filename="file://$(find robot_arm)/meshes/link2.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link2.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link2.STL" /> -->
       </geometry>
     </collision>
@@ -195,7 +201,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link3.STL" />
+          filename="file://$(find robot_arm)/meshes/link3.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link3.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link3.STL" /> -->
       </geometry>
       <material
@@ -210,7 +217,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link3.STL" />
+          filename="file://$(find robot_arm)/meshes/link3.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link3.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link3.STL" /> -->
       </geometry>
     </collision>
@@ -255,7 +263,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link4.STL" />
+          filename="file://$(find robot_arm)/meshes/link4.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link4.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link4.STL" /> -->
       </geometry>
       <material
@@ -270,7 +279,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link4.STL" />
+          filename="file://$(find robot_arm)/meshes/link4.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link4.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link4.STL" /> -->
       </geometry>
     </collision>
@@ -315,7 +325,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link51.STL" />
+          filename="file://$(find robot_arm)/meshes/link51.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link51.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link51.STL" /> -->
       </geometry>
       <material
@@ -330,7 +341,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link51.STL" />
+          filename="file://$(find robot_arm)/meshes/link51.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link51.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link51.STL" /> -->
       </geometry>
     </collision>
@@ -375,7 +387,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link52.STL" />
+          filename="file://$(find robot_arm)/meshes/link52.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link52.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link52.STL" /> -->
       </geometry>
       <material
@@ -390,7 +403,8 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link52.STL" />
+          filename="file://$(find robot_arm)/meshes/link52.STL" />
+          <!-- filename="/home/antonio/Documents/Projects/pinecone_pi4_ws/src/robot_arm/meshes/link52.STL" /> -->
           <!-- filename="package://robot_arm/meshes/link52.STL" /> -->
       </geometry>
     </collision>
