@@ -105,7 +105,7 @@ def generate_launch_description():
     position_goals = os.path.join(
         get_package_share_directory("articubot_one"),
         "config",
-        "rrbot_forward_position_publisher.yaml",
+        "forward_position_publisher.yaml",
     )
 
     publisher_forward_position_controller_spawer = Node(
