@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
-
-<robot name="eezybotarm">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="eezybotarm">
 
 <!-- BASE LINK -->
   <!-- <link name="base_link"></link> -->
   <joint name="base_joint_eezybotarm" type="fixed">
     <parent link="base_link" />
     <child link="base_link_eezybotarm" />
-    <origin xyz="-0.14 0 0.13" rpy="0 0 0" />
+    <origin xyz="-0.12 -0.09 0.13" rpy="0 0 0" />
   </joint>
   <link
     name="base_link_eezybotarm">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/base_link_eezybotarm.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/base_link.STL" />
       </geometry>
       <material name="">
         <color rgba="1 0 0 1" />
@@ -26,6 +25,9 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
+    <xacro:inertial_box mass="0.1" x="0.1" y="0.1" z="0.1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
 <!-- JOINT 1 HIP-->
@@ -45,7 +47,7 @@
       <origin
         xyz="0 -0.04 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_1.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_1.STL" />
       </geometry>
       <material name="">
         <color rgba="0 0.275 0 1" />
@@ -55,9 +57,12 @@
       <origin
         xyz="0 -0.04 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_1.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_1.STL" />
       </geometry>
     </collision>
+    <xacro:inertial_box mass="0.01" x="0.01" y="0.01" z="0.01">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
 <!-- JOINT 2 SHOULDER -->
@@ -75,7 +80,7 @@
     <visual>
       <origin xyz="0 0 0.0075" rpy="3.14159 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_2.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_2.STL" />
       </geometry>
       <material name="">
         <color rgba="0 0 1 1" />
@@ -84,9 +89,12 @@
     <collision>
       <origin xyz="0 0 0.0075" rpy="3.14159 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_2.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_2.STL" />
       </geometry>
     </collision>
+    <xacro:inertial_box mass="0.05" x="0.1" y="0.1" z="0.1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
   <!-- VIRTUAL MIMIC JOINT 2-->
@@ -115,6 +123,9 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
+    <xacro:inertial_box mass="0.02" x="0.1" y="0.1" z="0.1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
 <!-- JOINT 3 ELBOW -->
@@ -132,7 +143,7 @@
     <visual>
       <origin xyz="0 0.0335  0.002" rpy="1.570796325 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_3.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_3.STL" />
       </geometry>
       <material name="">
         <color rgba="1 0 0 1" />
@@ -141,9 +152,12 @@
     <collision>
       <origin xyz="0 0.0335  0.002" rpy="1.570796325 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_3.STL" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_3.STL" />
       </geometry>
     </collision>
+    <xacro:inertial_box mass="0.02" x="0.1" y="0.1" z="0.1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
   <!-- JOINT 4 CLAW SUPPORT -->
@@ -161,7 +175,7 @@
     <visual>
       <origin xyz="-0.006 0 -0.0394" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_4.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_4.STL" scale="0.001 0.001 0.001" />
       </geometry>
       <material name="">
         <color rgba="0 0.275 0 1" />
@@ -170,9 +184,12 @@
     <collision>
       <origin xyz="-0.006 0 -0.0394" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_4.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_4.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
+    <xacro:inertial_box mass="0.01" x="0.1" y="0.1" z="0.1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
   <!-- JOINT 5 CLAW BASE -->
@@ -188,7 +205,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_5.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_5.STL" scale="0.001 0.001 0.001" />
       </geometry>
       <material name="">
         <color rgba="0 0 1 1" />
@@ -197,9 +214,12 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/link_5.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/link_5.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
+    <xacro:inertial_box mass="0.01" x="0.1" y="0.1" z="0.1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_box>
   </link>
 
   <!-- FINGERS -->
@@ -224,13 +244,13 @@
     <visual>
       <origin xyz="0.0505 0.000 0" rpy="0 0 2.9" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/claw_l.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/claw_l.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0.0505 0.000 0" rpy="0 0 2.9" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/claw_l.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/claw_l.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
   </link>
@@ -239,13 +259,13 @@
     <visual>
       <origin xyz="0.0488 0.0102 0" rpy="0 0 3.14159" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/claw_r.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/claw_r.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0.0488 0.0102 0" rpy="0 0 3.14159" />
       <geometry>
-        <mesh filename="package://eezybotarm/meshes/claw_r.STL" scale="0.001 0.001 0.001" />
+        <mesh filename="file://$(find eezybotarm)/meshes/claw_r.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
   </link>
@@ -298,5 +318,25 @@
   <gazebo reference="link_1">
     <material>Gazebo/Green</material>
   </gazebo>
-
+  <gazebo reference="link_2">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="link_2v">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="link_3">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="link_4">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="claw_base">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="claw_l">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="claw_r">
+    <material>Gazebo/Green</material>
+  </gazebo>
 </robot>
