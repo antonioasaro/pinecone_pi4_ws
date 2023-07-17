@@ -98,7 +98,7 @@
   </link>
 
   <!-- VIRTUAL MIMIC JOINT 2-->
-  <joint name="joint2v" type="revolute">
+  <joint name="joint_2v" type="revolute">
     <origin xyz="-0.021 0.135 -0.0105" rpy="1.570796325 0 0" />
     <parent link="link_2"/>
     <child link="link_2v"/>
