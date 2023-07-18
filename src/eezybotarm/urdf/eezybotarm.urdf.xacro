@@ -25,7 +25,7 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
-    <xacro:inertial_box mass="0.1" x="0.1" y="0.1" z="0.1">
+    <xacro:inertial_box mass="0.01" x="0.1" y="0.1" z="0.1">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>
@@ -60,7 +60,7 @@
         <mesh filename="file://$(find eezybotarm)/meshes/link_1.STL" />
       </geometry>
     </collision>
-    <xacro:inertial_box mass="0.01" x="0.01" y="0.01" z="0.01">
+    <xacro:inertial_box mass="0.001" x="0.01" y="0.01" z="0.01">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>
@@ -92,7 +92,7 @@
         <mesh filename="file://$(find eezybotarm)/meshes/link_2.STL" />
       </geometry>
     </collision>
-    <xacro:inertial_box mass="0.05" x="0.1" y="0.1" z="0.1">
+    <xacro:inertial_box mass="0.001" x="0.1" y="0.1" z="0.1">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>
@@ -123,7 +123,7 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
-    <xacro:inertial_box mass="0.02" x="0.1" y="0.1" z="0.1">
+    <xacro:inertial_box mass="0.001" x="0.1" y="0.1" z="0.1">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>
@@ -155,7 +155,7 @@
         <mesh filename="file://$(find eezybotarm)/meshes/link_3.STL" />
       </geometry>
     </collision>
-    <xacro:inertial_box mass="0.02" x="0.1" y="0.1" z="0.1">
+    <xacro:inertial_box mass="0.001" x="0.1" y="0.1" z="0.1">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>
@@ -187,7 +187,7 @@
         <mesh filename="file://$(find eezybotarm)/meshes/link_4.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
-    <xacro:inertial_box mass="0.01" x="0.1" y="0.1" z="0.1">
+    <xacro:inertial_box mass="0.001" x="0.1" y="0.1" z="0.1">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>
@@ -217,7 +217,7 @@
         <mesh filename="file://$(find eezybotarm)/meshes/link_5.STL" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
-    <xacro:inertial_box mass="0.01" x="0.1" y="0.1" z="0.1">
+    <xacro:inertial_box mass="0.001" x="0.1" y="0.1" z="0.1">
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:inertial_box>
   </link>

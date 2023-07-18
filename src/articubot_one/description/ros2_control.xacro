@@ -137,8 +137,45 @@
                 </command_interface>
                 <state_interface name="position" />
             </joint>
-        </ros2_control>
-    </xacro:if>
+
+        <joint name="joint_1">
+            <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="position" />
+        </joint>
+        <joint name="joint_2">
+            <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="position" />
+        </joint>
+        <joint name="joint_2v">
+            <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="position" />
+        </joint>
+        <joint name="joint_3">
+            <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="position" />
+        </joint>
+        <joint name="joint_4">
+            <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="position" />
+        </joint>
+
+    </ros2_control>
+</xacro:if>
 
     <gazebo>
         <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
