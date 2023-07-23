@@ -53,13 +53,11 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_arduino_arm:
+          Value: true
         base_footprint:
           Value: true
         base_link:
-          Value: true
-        base_link_arm:
-          Value: true
-        base_link_eezybotarm:
           Value: true
         camera_link:
           Value: true
@@ -69,8 +67,6 @@ Visualization Manager:
           Value: true
         chassis:
           Value: true
-        claw_base:
-          Value: true
         face_link:
           Value: true
         imu_link:
@@ -78,20 +74,6 @@ Visualization Manager:
         laser_frame:
           Value: true
         left_wheel:
-          Value: true
-        link1:
-          Value: true
-        link2:
-          Value: true
-        link3:
-          Value: true
-        link4:
-          Value: true
-        link51:
-          Value: true
-        link52:
-          Value: true
-        link_4:
           Value: true
         odom:
           Value: true
@@ -105,18 +87,9 @@ Visualization Manager:
       Tree:
         odom:
           base_link:
-            base_footprint:
+            base_arduino_arm:
               {}
-            base_link_arm:
-              link1:
-                link2:
-                  link3:
-                    link4:
-                      link51:
-                        {}
-                      link52:
-                        {}
-            base_link_eezybotarm:
+            base_footprint:
               {}
             chassis:
               camera_link:
@@ -154,6 +127,25 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        arm1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        arm3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_arduino_arm:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         base_footprint:
           Alpha: 1
           Show Axes: false
@@ -162,16 +154,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        base_link_arm:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_link_eezybotarm:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         camera_link:
           Alpha: 1
           Show Axes: false
@@ -191,22 +173,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        claw_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        claw_l:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        claw_r:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         face_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gripper2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -226,62 +203,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link4:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link51:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link52:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_2v:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_4:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        waist:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -373,7 +300,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: base_arduino_arm
     Frame Rate: 30
   Name: root
   Tools:
@@ -416,16 +343,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.9284632205963135
+      Distance: 1.5111223459243774
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.270206481218338
-        Y: 0.22336940467357635
-        Z: 0.21540683507919312
+        X: -0.14528623223304749
+        Y: 0.2271931767463684
+        Z: 0.15239597856998444
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
