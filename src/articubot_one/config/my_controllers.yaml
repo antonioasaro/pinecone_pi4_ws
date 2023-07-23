@@ -74,9 +74,12 @@ diff_cont:
 forward_position_controller:
   ros__parameters:
     joints:
-      - base_joint
-      - shoulder
-      - elbow
+      - base_arduino_arm_joint
+      - shoulder_joint
+      - elbow_joint
+      - wrist_joint
+      - gripper1_joint
+      - gripper2_joint
     interface_name: position
 
 joint_traj:
@@ -84,7 +87,7 @@ joint_traj:
     joints:
       # - joint1
       # - joint2
-      - elbow
+      - elbow_joint
 
     command_interfaces:
       - position
