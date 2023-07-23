@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
 <!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
 <robot name="arduino_arm">
-<!--
     <link name="base_link"/>
--->
     <joint name="base_joint_arduino_arm" type="fixed">
         <parent link="base_link" />
         <child link="base_arduino_arm" />
-        <origin xyz="-0.14 0 0.145" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
     <link name="base_arduino_arm">
