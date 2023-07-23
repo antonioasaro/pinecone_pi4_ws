@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="arduino_arm">
+
+<!-- <?xml version="1.0"?> -->
 <!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
-<robot name="arduino_arm">
+<!-- <robot name="arduino_arm"> -->
 <!--
     <link name="base_link"/>
 -->
     <joint name="base_joint_arduino_arm" type="fixed">
         <parent link="base_link" />
-        <child link="base_arduino_arm" />
+        <child link="base_link_arduino_arm" />
         <origin xyz="-0.14 0 0.145" rpy="0 0 0" />
     </joint>
 
-    <link name="base_arduino_arm">
+    <link name="base_link_arduino_arm">
 
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -35,7 +38,7 @@
             </geometry>
         </collision>
     </link>
-    <link name="waist">
+    <link name="waist_link">
 
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -190,14 +193,14 @@
     </link>
     <joint name="base_joint" type="revolute">
         <origin xyz="-0.00345 -1e-05 0.04449" rpy="0 0 0" />
-        <parent link="base_arduino_arm" />
-        <child link="waist" />
+        <parent link="base_link_arduino_arm" />
+        <child link="waist_link" />
         <axis xyz="0 0 1.0" />
         <limit lower="-1.571" upper="1.571" effort="1000.0" velocity="1.0" />
     </joint>
     <joint name="shoulder" type="revolute">
         <origin xyz="0.00396 0.01369 0.03521" rpy="1.5708 0.03778 1.5708" />
-        <parent link="waist" />
+        <parent link="waist_link" />
         <child link="arm1" />
         <axis xyz="0 0 1.0" />
         <limit lower="-1.571" upper="1.571" effort="1000.0" velocity="1.0" />
@@ -298,10 +301,10 @@
         </plugin>
     </gazebo>
 
-    <gazebo reference="base_arduino_arm">
+    <gazebo reference="base_link_arduino_arm">
         <material>Gazebo/Green</material>
     </gazebo>
-    <gazebo reference="waist">
+    <gazebo reference="waist_link">
         <material>Gazebo/Green</material>
     </gazebo>
 

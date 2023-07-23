@@ -53,11 +53,11 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_arduino_arm:
-          Value: true
         base_footprint:
           Value: true
         base_link:
+          Value: true
+        base_link_arduino_arm:
           Value: true
         camera_link:
           Value: true
@@ -87,9 +87,9 @@ Visualization Manager:
       Tree:
         odom:
           base_link:
-            base_arduino_arm:
-              {}
             base_footprint:
+              {}
+            base_link_arduino_arm:
               {}
             chassis:
               camera_link:
@@ -141,10 +141,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        base_arduino_arm:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
           Value: true
         base_footprint:
           Alpha: 1
@@ -154,6 +150,11 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        base_link_arduino_arm:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         camera_link:
           Alpha: 1
           Show Axes: false
@@ -208,7 +209,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        waist:
+        waist_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -300,7 +301,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_arduino_arm
+    Fixed Frame: base_footprint
     Frame Rate: 30
   Name: root
   Tools:
@@ -343,16 +344,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.5111223459243774
+      Distance: 1.7629464864730835
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.14528623223304749
-        Y: 0.2271931767463684
-        Z: 0.15239597856998444
+        X: 0.09745927900075912
+        Y: 0.26750215888023376
+        Z: 0.12562698125839233
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

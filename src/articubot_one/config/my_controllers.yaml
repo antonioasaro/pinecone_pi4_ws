@@ -74,24 +74,17 @@ diff_cont:
 forward_position_controller:
   ros__parameters:
     joints:
-      - joint1
-      - joint2
-      - joint3
-      - joint4
-      - joint51
-      - joint52
-      - joint_1
-      - joint_2
-      - joint_2v
-      - joint_3
-      - joint_4
+      - base_joint
+      - shoulder
+      - elbow
     interface_name: position
 
 joint_traj:
   ros__parameters:
     joints:
       # - joint1
-      - joint2
+      # - joint2
+      - elbow
 
     command_interfaces:
       - position
