@@ -41,3 +41,4 @@ install/
 
 *.log
 abc.*
+src/articubot_one/config/main.rviz

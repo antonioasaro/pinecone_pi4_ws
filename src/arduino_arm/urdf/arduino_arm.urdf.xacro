@@ -147,20 +147,20 @@
         </inertial>
 
         <visual name="Gripper1">
-            <origin xyz="0 0 0" rpy="-1.86728 0 0" />
+            <origin xyz="0 -0.01 0.014" rpy="-1.86728 0 0" />
             <geometry>
-                <mesh filename="file://$(find arduino_arm)/meshes/Gripper1.002.stl"
-                    scale="1.0 1.0 1.0" />
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper1_fix.stl"
+                    scale="0.001 0.001 0.001" />
             </geometry>
             <material name="">
-                <color rgba="0.7 1 0 1" />
+                <color rgba="0 1 1 1" />
             </material>
         </visual>
         <collision name="Gripper1.000">
-            <origin xyz="0.00072 0.00044 0.00014" rpy="-1.86728 0 0" />
+            <origin xyz="0 -0.01 0.014" rpy="-1.86728 0 0" />
             <geometry>
-                <mesh filename="file://$(find arduino_arm)/meshes/Gripper1.003.stl"
-                    scale="1.0 1.0 1.0" />
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper1_fix.stl"
+                    scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -173,19 +173,19 @@
         </inertial>
 
         <visual name="Gripper2">
-            <origin xyz="0 0 0" rpy="1.25673 0 0" />
+            <origin xyz="-0.0015 0.01 -0.014" rpy="1.25673 0 0" />
             <geometry>
-                <mesh filename="file://$(find arduino_arm)/meshes/Gripper2.stl" scale="1.0 1.0 1.0" />
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material name="">
-                <color rgba="0.7 1 0 1" />
+                <color rgba="0 1 1 1" />
             </material>
         </visual>
         <collision name="Gripper2.000">
-            <origin xyz="-0.00023 -0.00045 0.00034" rpy="1.25673 0 0" />
+            <origin xyz="-0.0015 0.01 -0.014" rpy="1.25673 0 0" />
             <geometry>
-                <mesh filename="file://$(find arduino_arm)/meshes/Gripper2.001.stl"
-                    scale="1.0 1.0 1.0" />
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl"
+                    scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
     </link>
@@ -294,14 +294,11 @@
         </actuator>
     </transmission>
     <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/</robotNamespace>
         </plugin>
     </gazebo>
 
-    <gazebo reference="base_link_arduino_arm">
-        <material>Gazebo/Green</material>
-    </gazebo>
     <gazebo reference="waist_link">
         <material>Gazebo/Green</material>
     </gazebo>
