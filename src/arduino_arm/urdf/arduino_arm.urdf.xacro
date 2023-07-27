@@ -296,12 +296,13 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
-    -->
+
     <gazebo>
-        <plugin name="gazebo_ros2_control" filename="libgazebo_ros_control.so">
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
             <robotNamespace>/</robotNamespace>
         </plugin>
     </gazebo>
+-->
 
     <gazebo reference="base_link_arduino_arm">
         <material>Gazebo/Green</material>
