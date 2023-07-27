@@ -1134,6 +1134,12 @@
               <uri>file:///home/antonio/Documents/Projects/pinecone_pi4_ws/install/arduino_arm/share/arduino_arm/meshes/Base.stl</uri>
             </mesh>
           </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>          
         </visual>
         <visual name='base_link_fixed_joint_lump__chassis_visual_1'>
           <pose>-0.0585 0 0.059 0 -0 0</pose>
@@ -1475,6 +1481,12 @@
               <uri>file:///home/antonio/Documents/Projects/pinecone_pi4_ws/install/arduino_arm/share/arduino_arm/meshes/Waist.stl</uri>
             </mesh>
           </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>          
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -1541,6 +1553,12 @@
               <uri>file:///home/antonio/Documents/Projects/pinecone_pi4_ws/install/arduino_arm/share/arduino_arm/meshes/Arm_01.stl</uri>
             </mesh>
           </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>          
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -1607,6 +1625,12 @@
               <uri>file:///home/antonio/Documents/Projects/pinecone_pi4_ws/install/arduino_arm/share/arduino_arm/meshes/Arm_02.stl</uri>
             </mesh>
           </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>          
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -1674,6 +1698,12 @@
               <uri>file:///home/antonio/Documents/Projects/pinecone_pi4_ws/install/arduino_arm/share/arduino_arm/meshes/Arm_03.stl</uri>
             </mesh>
           </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>          
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -1741,6 +1771,12 @@
               <uri>file:///home/antonio/Documents/Projects/pinecone_pi4_ws/install/arduino_arm/share/arduino_arm/meshes/gripper1_fix.stl</uri>
             </mesh>
           </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Green</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>          
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
