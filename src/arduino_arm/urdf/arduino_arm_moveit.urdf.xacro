@@ -174,7 +174,7 @@
             <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
         </inertial>
 
-        <visual name="Gripper2">
+        <visual>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
                 <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl" scale="0.001 0.001 0.001" />
@@ -183,14 +183,14 @@
                 <color rgba="0 1 1 1" />
             </material>
         </visual>
-        <collision name="Gripper2.000">
+        <collision>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
 	    	<cylinder length="0.001" radius="0.001"/>
             </geometry>
         </collision>
     </link>
-		    <!--                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl" scale="0.001 0.001 0.001" /> -->
+
     <joint name="base_arduino_arm_joint" type="revolute">
         <origin xyz="-0.00345 -1e-05 0.04449" rpy="0 0 0" />
         <parent link="base_link_arduino_arm" />
@@ -303,8 +303,11 @@
         </plugin>
     </gazebo>
 
-    <gazebo reference="waist_link">
-        <material>Gazebo/Green</material>
+    <gazebo reference="gripper2_link">
+    	<material>Gazebo/Green</material>
+	<visual>
+            <transparency>0.25</transparency>
+        </visual>
     </gazebo>
 
 </robot>
