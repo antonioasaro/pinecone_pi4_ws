@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arduino_arm">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import arduino_arm urdf file -->
+    <xacro:include filename="$(find arduino_arm)/urdf/arduino_arm_moveit.urdf.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="arduino_arm.ros2_control.xacro" />
+
+
+    <xacro:arduino_arm_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>
