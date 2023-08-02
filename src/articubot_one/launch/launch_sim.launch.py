@@ -90,11 +90,23 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
 
-    forward_position_controller_spawner = Node(
+    robot_arm_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["forward_position_controller"],
+        arguments=["robot_arm_controller"],
     )
+
+    robot_hand_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["robot_hand_controller"],
+    )
+
+    # forward_position_controller_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["forward_position_controller"],
+    # )
 
     # joint_traj_spawner = Node(
     #     package="controller_manager",
@@ -102,19 +114,19 @@ def generate_launch_description():
     #     arguments=["joint_traj"],
     # )
 
-    position_goals = os.path.join(
-        get_package_share_directory("articubot_one"),
-        "config",
-        "forward_position_publisher.yaml",
-    )
+    # position_goals = os.path.join(
+    #     get_package_share_directory("articubot_one"),
+    #     "config",
+    #     "forward_position_publisher.yaml",
+    # )
 
-    publisher_forward_position_controller_spawer = Node(
-        package="ros2_controllers_test_nodes",
-        executable="publisher_forward_position_controller",
-        name="publisher_forward_position_controller",
-        parameters=[position_goals],
-        output="both",
-    )
+    # publisher_forward_position_controller_spawer = Node(
+    #     package="ros2_controllers_test_nodes",
+    #     executable="publisher_forward_position_controller",
+    #     name="publisher_forward_position_controller",
+    #     parameters=[position_goals],
+    #     output="both",
+    # )
 
     # Code for delaying a node (I haven't tested how effective it is)
     #
@@ -142,8 +154,10 @@ def generate_launch_description():
             spawn_entity,
             diff_drive_spawner,
             joint_broad_spawner,
-            # joint_traj_spawner,
-            forward_position_controller_spawner,
-            publisher_forward_position_controller_spawer,
+            robot_arm_controller_spawner,
+            robot_hand_controller_spawner,
+            #### joint_traj_spawner,
+            #### forward_position_controller_spawner,
+            #### publisher_forward_position_controller_spawer,
         ]
     )

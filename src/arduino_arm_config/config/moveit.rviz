@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /MotionPlanning1
-        - /MotionPlanning1/Planned Path1
       Splitter Ratio: 0.5
     Tree Height: 164
   - Class: rviz_common/Help
@@ -129,7 +128,7 @@ Visualization Manager:
         Goal State Color: 250; 128; 0
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
-        Planning Group: robot_hand
+        Planning Group: robot_arm
         Query Goal State: false
         Query Start State: false
         Show Workspace: false
@@ -214,25 +213,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.1993907690048218
+      Distance: 1.548799991607666
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.1878209412097931
-        Y: 0.17354156076908112
-        Z: 0.19747613370418549
+        X: -0.06259316205978394
+        Y: 0.11017801612615585
+        Z: 0.035337258130311966
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5249999761581421
+      Pitch: 0.31999969482421875
       Target Frame: base_link
       Value: Orbit (rviz_default_plugins)
-      Yaw: 4.715185642242432
+      Yaw: 4.060188293457031
     Saved: ~
 Window Geometry:
   Displays:

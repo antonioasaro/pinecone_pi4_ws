@@ -15,6 +15,12 @@ controller_manager:
     joint_traj:
       type: joint_trajectory_controller/JointTrajectoryController
 
+    robot_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    robot_hand_controller:
+      type: position_controllers/GripperActionController
+
 
 diff_cont:
   ros__parameters:
@@ -71,31 +77,48 @@ diff_cont:
 # joint_broad:
 #   ros__parameters:
 
-forward_position_controller:
+# forward_position_controller:
+#   ros__parameters:
+#     joints:
+#       - base_arduino_arm_joint
+#       - shoulder_joint
+#       - elbow_joint
+#       - wrist_joint
+#       - gripper1_joint
+#       - gripper2_joint
+#     interface_name: position
+
+# joint_traj:
+#   ros__parameters:
+#     joints:
+#       # - joint1
+#       # - joint2
+#       - elbow_joint
+
+#     command_interfaces:
+#       - position
+
+#     state_interfaces:
+#       - position
+
+robot_arm_controller:
   ros__parameters:
     joints:
-      - base_arduino_arm_joint
+      - base_waist_joint
       - shoulder_joint
       - elbow_joint
       - wrist_joint
-      - gripper1_joint
-      - gripper2_joint
-    interface_name: position
-
-joint_traj:
-  ros__parameters:
-    joints:
-      # - joint1
-      # - joint2
-      - elbow_joint
-
     command_interfaces:
       - position
-
     state_interfaces:
       - position
-
+      - velocity
+      
+robot_hand_controller:
+  ros__parameters:
+    joint: gripper1_joint
     action_monitor_rate: 20.0 # Defaults to 20
+
 
     allow_partial_joints_goal: false # Defaults to false
     open_loop_control: true
