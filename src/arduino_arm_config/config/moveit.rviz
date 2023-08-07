@@ -5,8 +5,10 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /MotionPlanning1
+        - /MotionPlanning1/Planning Request1
+        - /MotionPlanning1/Planned Path1
       Splitter Ratio: 0.5
-    Tree Height: 164
+    Tree Height: 70
   - Class: rviz_common/Help
     Name: Help
   - Class: rviz_common/Views
@@ -81,11 +83,39 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          base_footprint:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
           base_link_arduino_arm:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          camera_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          camera_link_optical:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          caster_wheel:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          chassis:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          face_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -96,6 +126,26 @@ Visualization Manager:
             Show Trail: false
             Value: true
           gripper2_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          imu_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          laser_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          left_wheel:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          right_wheel:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -128,7 +178,7 @@ Visualization Manager:
         Goal State Color: 250; 128; 0
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
-        Planning Group: robot_hand
+        Planning Group: robot_arm
         Query Goal State: false
         Query Start State: false
         Show Workspace: false
@@ -166,11 +216,39 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          base_footprint:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
           base_link_arduino_arm:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          camera_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          camera_link_optical:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          caster_wheel:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          chassis:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          face_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -181,6 +259,26 @@ Visualization Manager:
             Show Trail: false
             Value: true
           gripper2_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          imu_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          laser_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          left_wheel:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          right_wheel:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -213,30 +311,30 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.548799991607666
+      Distance: 2.175952434539795
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.06259316205978394
-        Y: 0.11017801612615585
-        Z: 0.035337258130311966
+        X: -0.12743160128593445
+        Y: 0.10773644596338272
+        Z: 0.18883605301380157
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.31999969482421875
+      Pitch: 0.5
       Target Frame: base_link
       Value: Orbit (rviz_default_plugins)
-      Yaw: 4.060188293457031
+      Yaw: -0.6230000257492065
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 986
+  Height: 848
   Help:
     collapsed: false
   Hide Left Dock: false
@@ -245,9 +343,9 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002b400000380fc0200000005fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004100fffffffb000000100044006900730070006c006100790073010000003d00000127000000c900fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067010000016a000001960000017d00fffffffb0000000800480065006c0070000000029a0000006e0000006e00fffffffb0000000a005600690065007700730100000306000000b7000000a400ffffff000003900000038000000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000002b4000002f6fc0200000005fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004100fffffffb000000100044006900730070006c006100790073010000003d000000c9000000c900fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067010000010c0000017d0000017d00fffffffb0000000800480065006c0070000000029a0000006e0000006e00fffffffb0000000a00560069006500770073010000028f000000a4000000a400ffffff000001fd000002f600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 1610
-  X: 1350
-  Y: 27
+  Width: 1207
+  X: 1568
+  Y: 64

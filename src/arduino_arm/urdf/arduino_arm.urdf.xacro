@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="arduino_arm">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
-<!-- <?xml version="1.0"?> -->
-<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
-<!-- <robot name="arduino_arm"> -->
-<!-- <link name="base_link"/> -->
+    <!-- <?xml version="1.0"?> -->
+    <!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+    <!-- <robot name="arduino_arm"> -->
+    <!-- <link name="base_link"/> -->
 
     <joint name="base_link_arduino_arm_joint" type="fixed">
         <parent link="base_link" />
@@ -177,7 +177,8 @@
         <visual>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
-                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl"
+                    scale="0.001 0.001 0.001" />
             </geometry>
             <material name="">
                 <color rgba="0 1 1 1" />
@@ -186,7 +187,7 @@
         <collision>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
-	    	<cylinder length="0.001" radius="0.001"/>
+                <cylinder length="0.001" radius="0.001" />
             </geometry>
         </collision>
     </link>
@@ -232,7 +233,7 @@
         <child link="gripper2_link" />
         <axis xyz="0 0 1.0" />
         <limit lower="0" upper="1.047" effort="1000.0" velocity="1.0" />
-	<mimic joint="gripper1_joint" multiplier="1.0" offset="0.0" />
+        <mimic joint="gripper1_joint" multiplier="1.0" offset="0.0" />
     </joint>
 
     <transmission name="trans_base_joint">

@@ -1,4 +1,4 @@
-# Default initial positions for arduino_arm's ros2_control fake system
+# Default initial positions for robot's ros2_control fake system
 
 initial_positions:
   base_waist_joint: 0

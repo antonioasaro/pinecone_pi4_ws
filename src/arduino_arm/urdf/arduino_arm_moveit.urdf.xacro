@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="arduino_arm">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
-<!-- <?xml version="1.0"?> -->
-<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
-<!-- <robot name="arduino_arm"> -->
-    <link name="base_link"/>
+    <xacro:include filename="inertial_macros.xacro" />
+    <!-- <?xml version="1.0"?> -->
+    <!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+    <!-- <robot name="arduino_arm"> -->
+    <link name="base_link" />
 
     <joint name="base_link_arduino_arm_joint" type="fixed">
         <parent link="base_link" />
@@ -177,7 +178,8 @@
         <visual>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
-                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl" scale="0.001 0.001 0.001" />
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl"
+                    scale="0.001 0.001 0.001" />
             </geometry>
             <material name="">
                 <color rgba="0 1 1 1" />
@@ -186,7 +188,7 @@
         <collision>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
-	    	<cylinder length="0.001" radius="0.001"/>
+                <cylinder length="0.001" radius="0.001" />
             </geometry>
         </collision>
     </link>
@@ -232,7 +234,7 @@
         <child link="gripper2_link" />
         <axis xyz="0 0 1.0" />
         <limit lower="0" upper="1.047" effort="1000.0" velocity="1.0" />
-	<mimic joint="gripper1_joint" multiplier="1.0" offset="0.0" />
+        <mimic joint="gripper1_joint" multiplier="1.0" offset="0.0" />
     </joint>
 
     <transmission name="trans_base_joint">
@@ -303,6 +305,68 @@
         </plugin>
     </gazebo>
 -->
+
+    <!-- <xacro:property name="wheel_radius" value="0.0001"/>
+    <xacro:property name="wheel_thickness" value="0.026"/>
+    <xacro:property name="wheel_mass" value="0.05"/>
+    <xacro:property name="wheel_offset_y" value="0.1485"/> -->
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1" />
+    </material>
+
+    <joint name="left_wheel_joint" type="fixed">
+        <parent link="base_link_arduino_arm" />
+        <child link="left_wheel" />
+        <origin xyz="0 0.004 0" rpy="-${pi/2} 0 0" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <link name="left_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.001" length="0.002" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.001" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.003" length="0.002" radius="0.002">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+    </link>
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <joint name="right_wheel_joint" type="fixed">
+        <parent link="base_link_arduino_arm" />
+        <child link="right_wheel" />
+        <origin xyz="0 -0.004 0" rpy="${pi/2} 0 0" />
+        <axis xyz="0 0 -1" />
+    </joint>
+
+    <link name="right_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.001" length="0.002" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.002" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.003" length="0.002" radius="0.001">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+    </link>
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
 
     <gazebo reference="base_link_arduino_arm">
         <material>Gazebo/Green</material>
