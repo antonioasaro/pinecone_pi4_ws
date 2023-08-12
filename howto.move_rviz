@@ -1,1 +1,0 @@
- ros2 launch arduino_arm_config moveit_rviz.launch.py 
