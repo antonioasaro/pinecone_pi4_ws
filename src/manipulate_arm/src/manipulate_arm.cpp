@@ -39,8 +39,8 @@ class ManipulatorArmPublisher : public rclcpp::Node
       traj.points[1].positions.resize(4);
       traj.points[1].positions[0] =  3.0;
       traj.points[1].positions[1] = -2.0;
-      traj.points[1].positions[2] =  2.0;
-      traj.points[1].positions[3] =  2.0;
+      traj.points[1].positions[2] =  1.5;
+      traj.points[1].positions[3] =  1.0;
       traj.points[1].time_from_start = rclcpp::Duration::from_seconds(10.0);
       
       RCLCPP_INFO(this->get_logger(), "Publishing joint_trajectory: %d", (int) count_++);
