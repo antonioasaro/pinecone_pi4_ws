@@ -20,12 +20,12 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < 256; i++)
   {
-    RCLCPP_INFO(node->get_logger(), "Iteration %d", i);
+    RCLCPP_INFO(node->get_logger(), "Request to %s", (i % 2) ? "open" : "close");
     // Create a goal message
     auto goal = ActionGripperCommand::Goal();
-    goal.command.position = i * 0.8;
+    goal.command.position = (i % 2) * 0.8;
 
     // Send the goal and wait for the result
     auto send_goal_future = client->async_send_goal(goal);
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     auto result = result_future.get();
     if (result.code == rclcpp_action::ResultCode::SUCCEEDED)
     {
-      RCLCPP_INFO(node->get_logger(), "Result: %d", result.result->reached_goal);
+      RCLCPP_INFO(node->get_logger(), "Result: %s", (i % 2) ? "opened" : "closed");
     }
     else
     {
