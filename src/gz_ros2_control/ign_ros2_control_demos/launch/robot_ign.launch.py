@@ -76,6 +76,11 @@ def generate_launch_description():
              'robot_hand_controller'],
         output='screen'
     )
+    load_diff_drive_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'diff_drive_controller'],
+        output='screen'
+    )
 
     return LaunchDescription([
         # Launch gazebo environment
@@ -100,6 +105,12 @@ def generate_launch_description():
             event_handler=OnProcessExit(
                 target_action=load_joint_state_broadcaster,
                 on_exit=[load_robot_hand_controller],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_broadcaster,
+                on_exit=[load_diff_drive_controller],
             )
         ),
         node_robot_state_publisher,
