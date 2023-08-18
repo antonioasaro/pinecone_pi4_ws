@@ -60,6 +60,14 @@ def generate_launch_description():
                    '-allow_renaming', 'true'],
     )
 
+    set_contoller_manager_use_sim_time = ExecuteProcess(
+        cmd=['ros2', 'param', 'set', '/controller_manager', 'use_sim_time', 'true'],
+        output='screen')
+
+    set_gz_ros2_control_use_sim_time = ExecuteProcess(
+        cmd=['ros2', 'param', 'set', '/gz_ros2_control', 'use_sim_time', 'true'],
+        output='screen')
+    
     load_joint_state_broadcaster = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
              'joint_state_broadcaster'],
@@ -89,6 +97,18 @@ def generate_launch_description():
                 [os.path.join(get_package_share_directory('ros_ign_gazebo'),
                               'launch', 'ign_gazebo.launch.py')]),
             launch_arguments=[('gz_args', [' -r -v 4 empty.sdf'])]),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=ignition_spawn_entity,
+                on_exit=[set_contoller_manager_use_sim_time],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=ignition_spawn_entity,
+                on_exit=[set_gz_ros2_control_use_sim_time],
+            )
+        ),
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=ignition_spawn_entity,
