@@ -1,4 +1,3 @@
 source howto.ros2
 source howto.colcon
 source howto.install
-code .
