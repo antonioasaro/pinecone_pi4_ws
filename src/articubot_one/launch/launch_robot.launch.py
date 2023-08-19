@@ -20,7 +20,7 @@ def generate_launch_description():
     # Include the robot_state_publisher launch file, provided by our own package. Force sim time to be enabled
     # !!! MAKE SURE YOU SET THE PACKAGE NAME CORRECTLY !!!
 
-    package_name='articubot_one' #<--- CHANGE ME
+    package_name = "articubot_one"  # <--- CHANGE ME
 
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -57,7 +57,7 @@ def generate_launch_description():
                     controller_params_file]
     )
 
-    delayed_controller_manager = TimerAction(period=3.0, actions=[controller_manager])
+    delayed_controller_manager = TimerAction(period=1.0, actions=[controller_manager])
 
     diff_drive_spawner = Node(
         package="controller_manager",
@@ -85,25 +85,51 @@ def generate_launch_description():
         )
     )
 
-    forward_position_controller_spawner = Node(
+    robot_arm_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["forward_position_controller"],
+        arguments=["robot_arm_controller"],
     )
 
-    position_goals = os.path.join(
-        get_package_share_directory("articubot_one"),
-        "config",
-        "rrbot_forward_position_publisher.yaml",
+    delayed_robot_arm_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[robot_arm_spawner],
+        )
     )
 
-    publisher_forward_position_controller_spawer = Node(
-        package="ros2_controllers_test_nodes",
-        executable="publisher_forward_position_controller",
-        name="publisher_forward_position_controller",
-        parameters=[position_goals],
-        output="both",
+    robot_hand_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["robot_hand_controller"],
     )
+
+    delayed_robot_hand_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[robot_hand_spawner],
+        )
+    )
+
+#    forward_position_controller_spawner = Node(
+#        package="controller_manager",
+#        executable="spawner",
+#        arguments=["forward_position_controller"],
+#    )
+#
+#    position_goals = os.path.join(
+#        get_package_share_directory("articubot_one"),
+#        "config",
+#        "rrbot_forward_position_publisher.yaml",
+#    )
+#
+#    publisher_forward_position_controller_spawer = Node(
+#        package="ros2_controllers_test_nodes",
+#        executable="publisher_forward_position_controller",
+#        name="publisher_forward_position_controller",
+#        parameters=[position_goals],
+#        output="both",
+#    )
 
 
     # Code for delaying a node (I haven't tested how effective it is)
@@ -132,6 +158,8 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
-        forward_position_controller_spawner,
-        publisher_forward_position_controller_spawer
+        delayed_robot_arm_spawner,
+        delayed_robot_hand_spawner,
+#        forward_position_controller_spawner,
+#        publisher_forward_position_controller_spawer
     ])
