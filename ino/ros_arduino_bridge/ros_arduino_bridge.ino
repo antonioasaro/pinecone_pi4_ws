@@ -91,8 +91,11 @@
 /* Include definition of serial commands */
 #include "commands.h"
 
+#ifdef ANTONIO
+#else
 /* Sensor functions */
 #include "sensors.h"
+#endif
 
 /* Include servo support if required */
 #ifdef USE_SERVOS
@@ -189,20 +192,19 @@ int runCommand() {
     else if (arg2 == 1) pinMode(arg1, OUTPUT);
     Serial.println("OK");
     break;
+ #ifdef ANTONIO
+ #else
   case PING:
     Serial.println(Ping(arg1));
     break;
+#endif
 #ifdef USE_SERVOS
   case SERVO_WRITE:
     servos[arg1].setTargetPosition(arg2);
     Serial.println("OK");
     break;
   case SERVO_READ:
-#ifdef ANTONIO
-    Serial.println("99");
-#else
-    Serial.println(servos[arg1].getServo().read());
-#endif
+     Serial.println(servos[arg1].getServo().read());
     break;
 #endif
     
@@ -288,15 +290,25 @@ void setup() {
 #endif
 
 /* Attach servos if used */
-  #ifdef USE_SERVOS
-    int i;
-    for (i = 0; i < N_SERVOS; i++) {
-      servos[i].initServo(
-          servoPins[i],
-          stepDelay[i],
-          servoInitPosition[i]);
-    }
-  #endif
+#ifdef USE_SERVOS
+  int i;
+  for (i = 0; i < N_SERVOS; i++) {
+    servos[i].initServo(
+        servoPins[i],
+        stepDelay[i],
+        servoInitPosition[i]);
+  }
+#endif
+
+#ifdef ANTONIO
+  int j;
+  for (j = 0; j < 8; j++) {
+    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+    delay(500);                       // wait for a 1/2 second
+    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+    delay(500);                       // wait for a 1/2 second
+  }
+#endif
 }
 
 /* Enter the main loop.  Read and parse input from the serial port
