@@ -46,8 +46,11 @@
  *********************************************************************/
 #define ANTONIO
 
+#ifdef ANTONIO
+#undef USE_BASE       // Disable the base controller code
+#else
 #define USE_BASE      // Enable the base controller code
-//#undef USE_BASE     // Disable the base controller code
+#endif
 
 /* Define the motor controller and encoder library you are using */
 #ifdef USE_BASE
@@ -67,8 +70,11 @@
    #define L298_MOTOR_DRIVER
 #endif
 
-//#define USE_SERVOS  // Enable use of PWM servos as defined in servos.h
+#ifdef ANTONIO
+#define USE_SERVOS    // Enable use of PWM servos as defined in servos.h
+#else
 #undef USE_SERVOS     // Disable use of PWM servos
+#endif
 
 /* Serial port baud rate */
 #define BAUDRATE     57600
@@ -141,7 +147,7 @@ long arg2;
 
 /* Clear the current command parameters */
 void resetCommand() {
-  cmd = NULL;
+  cmd = '\0';
   memset(argv1, 0, sizeof(argv1));
   memset(argv2, 0, sizeof(argv2));
   arg1 = 0;
@@ -192,17 +198,17 @@ int runCommand() {
     Serial.println("OK");
     break;
   case SERVO_READ:
+#ifdef ANTONIO
+    Serial.println("99");
+#else
     Serial.println(servos[arg1].getServo().read());
+#endif
     break;
 #endif
     
 #ifdef USE_BASE
   case READ_ENCODERS:
-#ifdef ANTONIO
-    Serial.print("67");
-#else
     Serial.print(readEncoder(LEFT));
-#endif
     Serial.print(" ");
     Serial.println(readEncoder(RIGHT));
     break;

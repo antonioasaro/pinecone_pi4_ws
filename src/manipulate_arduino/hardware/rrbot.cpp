@@ -109,10 +109,8 @@ hardware_interface::CallbackReturn RRBotSystemPositionOnlyHardware::on_configure
 
   // Set up the Arduino
   arduino_.setup("/dev/ttyUSB0", 57600, 1000);  
-  //// arduino_.setMotorValues(0, 0);
-  int x, y; x = 7; y = 9;
-  sleep(2); arduino_.readEncoderValues(x, y);
-  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "readEncoderValues: %d %d", x, y);
+  sleep(2); 
+  arduino_.setServoValues(0, 3);
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Finished arduino_comms configuration");
 
 #else
