@@ -24,24 +24,30 @@ class ManipulatorArmPublisher : public rclcpp::Node
       trajectory_msgs::msg::JointTrajectory traj;
 
       traj.header.frame_id = "base_link";
-      traj.joint_names.resize(4);
+      traj.joint_names.resize(6);
       traj.joint_names[0] ="base_waist_joint";
       traj.joint_names[1] ="shoulder_joint";
       traj.joint_names[2] ="elbow_joint";
       traj.joint_names[3] ="wrist_joint";
+      traj.joint_names[4] ="gripper1_joint";
+      traj.joint_names[5] ="gripper2_joint";
       traj.points.resize(2);
-      traj.points[0].positions.resize(4);
+      traj.points[0].positions.resize(6);
       traj.points[0].positions[0] = 0.0;
       traj.points[0].positions[1] = 0.0;
       traj.points[0].positions[2] = 0.0;
       traj.points[0].positions[3] = 0.0;
-      traj.points[0].time_from_start = rclcpp::Duration::from_seconds(5.0);
-      traj.points[1].positions.resize(4);
-      traj.points[1].positions[0] =  3.0;
-      traj.points[1].positions[1] = -2.0;
+      traj.points[0].positions[4] = 0.0;
+      traj.points[0].positions[5] = 0.0;
+      traj.points[0].time_from_start = rclcpp::Duration::from_seconds(10.0);
+      traj.points[1].positions.resize(6);
+      traj.points[1].positions[0] =  2.0;
+      traj.points[1].positions[1] = -1.5;
       traj.points[1].positions[2] =  1.5;
       traj.points[1].positions[3] =  1.0;
-      traj.points[1].time_from_start = rclcpp::Duration::from_seconds(10.0);
+      traj.points[1].positions[4] =  0.6;
+      traj.points[1].positions[5] =  0.6;
+      traj.points[1].time_from_start = rclcpp::Duration::from_seconds(20.0);
       
       RCLCPP_INFO(this->get_logger(), "Publishing joint_trajectory: %d", (int) count_++);
       publisher_->publish(traj);

@@ -4,32 +4,34 @@ ros2 topic pub /robot_arm_controller/joint_trajectory trajectory_msgs/JointTraje
     "base_waist_joint",
     "shoulder_joint",
     "elbow_joint",
-    "wrist_joint"
+    "wrist_joint",
+    "gripper1_joint",
+    "gripper2_joint"
   ],
   "points": [
     {
-      "positions": [0.0, 0.0, 0.0, 0.0], 
+      "positions": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
       "time_from_start": {
         "sec": 10, 
         "nanosec": 0
       }
     },
     {
-      "positions": [1.2, 0.4, -0.2, 0.0], 
+      "positions": [1.2, 0.4, -0.2, 0.0, 0.2, 0.2], 
       "time_from_start": {
         "sec": 20, 
         "nanosec": 0
       }
     },
     {
-      "positions": [2.4, -0.4, 0.2, 0.0], 
+      "positions": [2.4, -0.4, 0.2, 0.0, 0.6, 0.6], 
       "time_from_start": {
         "sec": 30, 
         "nanosec": 0
       }
     },
     {
-      "positions": [0.0, 0.0, 0.0, 0.0], 
+      "positions": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
       "time_from_start": {
         "sec": 40, 
         "nanosec": 0

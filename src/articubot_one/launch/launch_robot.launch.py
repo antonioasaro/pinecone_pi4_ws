@@ -98,18 +98,18 @@ def generate_launch_description():
         )
     )
 
-    robot_hand_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["robot_hand_controller"],
-    )
+    # robot_hand_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["robot_hand_controller"],
+    # )
 
-    delayed_robot_hand_spawner = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=controller_manager,
-            on_start=[robot_hand_spawner],
-        )
-    )
+    # delayed_robot_hand_spawner = RegisterEventHandler(
+    #     event_handler=OnProcessStart(
+    #         target_action=controller_manager,
+    #         on_start=[robot_hand_spawner],
+    #     )
+    # )
 
 #    forward_position_controller_spawner = Node(
 #        package="controller_manager",
@@ -159,7 +159,7 @@ def generate_launch_description():
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
         delayed_robot_arm_spawner,
-        delayed_robot_hand_spawner,
+        # delayed_robot_hand_spawner,
 #        forward_position_controller_spawner,
 #        publisher_forward_position_controller_spawer
     ])

@@ -102,11 +102,11 @@ def generate_launch_description():
         arguments=["robot_arm_controller"],
     )
 
-    robot_hand_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["robot_hand_controller"],
-    )
+    # robot_hand_controller_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["robot_hand_controller"],
+    # )
 
     # forward_position_controller_spawner = Node(
     #     package="controller_manager",
@@ -161,7 +161,7 @@ def generate_launch_description():
             diff_drive_spawner,
             joint_broad_spawner,
             robot_arm_controller_spawner,
-            robot_hand_controller_spawner,
+            # robot_hand_controller_spawner,
             #### joint_traj_spawner,
             #### forward_position_controller_spawner,
             #### publisher_forward_position_controller_spawer,

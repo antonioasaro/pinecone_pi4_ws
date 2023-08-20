@@ -193,6 +193,10 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
 #ifdef ANTONIO
+  for (uint i = 0; i < hw_states_.size(); i++)
+  {
+    hw_states_[i] = hw_states_[i] + (hw_commands_[i] - hw_states_[i]) / hw_slowdown_;
+  }
 #else
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Reading...");
@@ -216,9 +220,7 @@ hardware_interface::return_type RRBotSystemPositionOnlyHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
 #ifdef ANTONIO
-static float prev_hw_command;
-if (prev_hw_command != (float) hw_commands_[0]) {
-#endif
+#else
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Writing...");
 
@@ -232,9 +234,6 @@ if (prev_hw_command != (float) hw_commands_[0]) {
   RCLCPP_INFO(
     rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Joints successfully written!");
   // END: This part here is for exemplary purposes - Please do not copy to your production code
-#ifdef ANTONIO
-  prev_hw_command = (float) hw_commands_[0];
-}
 #endif
 
   return hardware_interface::return_type::OK;
