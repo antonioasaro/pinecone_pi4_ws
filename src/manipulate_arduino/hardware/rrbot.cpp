@@ -14,6 +14,7 @@
 // limitations under the License.
 
 #include "ros2_control_demo_example_1/rrbot.hpp"
+#include "arduino_comms/arduino_comms.h"
 
 #include <chrono>
 #include <cmath>
@@ -26,6 +27,8 @@
 
 namespace ros2_control_demo_example_1
 {
+ArduinoComms arduino_;
+
 hardware_interface::CallbackReturn RRBotSystemPositionOnlyHardware::on_init(
   const hardware_interface::HardwareInfo & info)
 {
@@ -90,6 +93,29 @@ hardware_interface::CallbackReturn RRBotSystemPositionOnlyHardware::on_init(
 hardware_interface::CallbackReturn RRBotSystemPositionOnlyHardware::on_configure(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
+
+#ifdef ANTONIO
+  //// time_ = std::chrono::system_clock::now();
+  //// cfg_.left_wheel_name = info_.hardware_parameters["left_wheel_name"];
+  //// cfg_.right_wheel_name = info_.hardware_parameters["right_wheel_name"];
+  //// cfg_.loop_rate = std::stof(info_.hardware_parameters["loop_rate"]);
+  //// cfg_.device = info_.hardware_parameters["device"];
+  //// cfg_.baud_rate = std::stoi(info_.hardware_parameters["baud_rate"]);
+  //// cfg_.timeout = std::stoi(info_.hardware_parameters["timeout"]);
+  //// cfg_.enc_counts_per_rev = std::stoi(info_.hardware_parameters["enc_counts_per_rev"]);
+  //// // Set up the wheels
+  //// l_wheel_.setup(cfg_.left_wheel_name, cfg_.enc_counts_per_rev);
+  //// r_wheel_.setup(cfg_.right_wheel_name, cfg_.enc_counts_per_rev);
+
+  // Set up the Arduino
+  arduino_.setup("/dev/ttyUSB0", 57600, 1000);  
+  //// arduino_.setMotorValues(0, 0);
+  int x, y; x = 7; y = 9;
+  sleep(2); arduino_.readEncoderValues(x, y);
+  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "readEncoderValues: %d %d", x, y);
+  RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Finished arduino_comms configuration");
+
+#else
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
   RCLCPP_INFO(
     rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Configuring ...please wait...");
@@ -102,6 +128,7 @@ hardware_interface::CallbackReturn RRBotSystemPositionOnlyHardware::on_configure
       hw_start_sec_ - i);
   }
   // END: This part here is for exemplary purposes - Please do not copy to your production code
+#endif
 
   // reset values always when configuring hardware
   for (uint i = 0; i < hw_states_.size(); i++)

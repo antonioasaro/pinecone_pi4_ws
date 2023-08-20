@@ -11,6 +11,8 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   pluginlib
   rclcpp
   rclcpp_lifecycle
+  controller_manager
+  serial
 )
 
 # find dependencies
@@ -25,6 +27,7 @@ add_library(
   ros2_control_demo_example_1
   SHARED
   hardware/rrbot.cpp
+  hardware/arduino_comms.cpp
 )
 target_compile_features(ros2_control_demo_example_1 PUBLIC cxx_std_17)
 target_include_directories(ros2_control_demo_example_1 PUBLIC
@@ -41,7 +44,7 @@ ament_target_dependencies(
 target_compile_definitions(${PROJECT_NAME} PRIVATE "ROS2_CONTROL_DEMO_EXAMPLE_1_BUILDING_DLL")
 
 # Export hardware plugins
-pluginlib_export_plugin_description_file(hardware_interface ros2_control_demo_example_1.xml)
+pluginlib_export_plugin_description_file(hardware_interface ros2_control_demo_example_1.xml serial)
 
 # INSTALL
 install(
