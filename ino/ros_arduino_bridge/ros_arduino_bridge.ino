@@ -77,7 +77,7 @@
 #endif
 
 /* Serial port baud rate */
-#define BAUDRATE     57600
+#define BAUDRATE     115200
 
 /* Maximum PWM signal */
 #define MAX_PWM        255
@@ -201,7 +201,7 @@ int runCommand() {
 #ifdef USE_SERVOS
   case SERVO_WRITE:
     servos[arg1].setTargetPosition(arg2);
-    Serial.println("OK");
+    Serial.println("OK!!");
     break;
   case SERVO_READ:
      Serial.println(servos[arg1].getServo().read());

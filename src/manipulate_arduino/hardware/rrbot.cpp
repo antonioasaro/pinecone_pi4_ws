@@ -31,8 +31,10 @@
 #define WRIST_JOINT      3
 #define GRIPPER1_JOINT   4
 #define GRIPPER2_JOINT   5
-#define SERVO_MIN       60
+
 #define SERVO_DEFAULT   90
+#define SERVO_RANGE     30
+#define SERVO_MIN       60
 #define SERVO_MAX      120
 
 namespace ros2_control_demo_example_1
@@ -105,7 +107,7 @@ namespace ros2_control_demo_example_1
   {
 
 #ifdef ANTONIO
-    arduino_.setup("/dev/ttyUSB0", 57600, 1000);
+    arduino_.setup("/dev/ttyUSB0", 115200, 1000);
     RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Finished arduino_comms configuration");
 #else
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
@@ -247,9 +249,17 @@ namespace ros2_control_demo_example_1
     }
     float x;
     x = hw_commands_[GRIPPER1_JOINT];
-    if (x < 0.0) x = 0;
-    if (x > 1.0) x = 1;
-    arduino_.setServoValues(0, SERVO_MIN + ((SERVO_MAX - SERVO_MIN) * x), false);
+    if (x < 0.0) x = 0.0;
+    if (x > 1.0) x = 1.0;
+    arduino_.setServoValues(0, SERVO_MIN + (2* SERVO_RANGE * x), false);
+    // x = hw_commands_[WRIST_JOINT];
+    // if (x < -1.0) x = -1.0;
+    // if (x >  1.0) x =  1.0;
+    // arduino_.setServoValues(1, SERVO_DEFAULT + (SERVO_RANGE * x), false);
+    // x = hw_commands_[ELBOW_JOINT];
+    // if (x < -1.0) x = -1.0;
+    // if (x >  1.0) x =  1.0;
+    // arduino_.setServoValues(2, SERVO_DEFAULT + (SERVO_RANGE * x), false);
 #else
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
     RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Writing...");
