@@ -25,17 +25,9 @@
 #include "rclcpp/rclcpp.hpp"
 
 #define ANTONIO
-#define BASE_WAIST_JOINT 0
-#define SHOULDER_JOINT   1
-#define ELBOW_JOINT      2
-#define WRIST_JOINT      3
-#define GRIPPER1_JOINT   4
-#define GRIPPER2_JOINT   5
-
+#define SERVO_NUMBER     6
 #define SERVO_DEFAULT   90
 #define SERVO_RANGE     30
-#define SERVO_MIN       60
-#define SERVO_MAX      120
 
 namespace ros2_control_demo_example_1
 {
@@ -241,26 +233,19 @@ namespace ros2_control_demo_example_1
       const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
   {
 #ifdef ANTONIO
-    if (hw_commands_[GRIPPER1_JOINT] != 0)
+    float servo_cmd[SERVO_NUMBER];
+    int   servo_pos[SERVO_NUMBER];
+    for (uint i = 0; i < hw_commands_.size(); i++)
     {
-      // RCLCPP_INFO(
-      //     rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "ArduinoComms command %.5f for joint %d!",
-      //     hw_commands_[GRIPPER1_JOINT], GRIPPER1_JOINT);
+      servo_cmd[i] = hw_commands_[i];
+      if (servo_cmd[i] < 0.0) servo_cmd[i] = 0.0;
+      else if (servo_cmd[i] > 1.0) servo_cmd[i] = 1.0;
+      servo_pos[i] = (SERVO_DEFAULT - SERVO_RANGE) + (2* SERVO_RANGE * servo_cmd[i]);
     }
-    float x;
-    x = hw_commands_[GRIPPER1_JOINT];
-    if (x < 0.0) x = 0.0;
-    if (x > 1.0) x = 1.0;
-    arduino_.setServoValues(0, SERVO_MIN + (2* SERVO_RANGE * x), false);
-    // x = hw_commands_[WRIST_JOINT];
-    // if (x < -1.0) x = -1.0;
-    // if (x >  1.0) x =  1.0;
-    // arduino_.setServoValues(1, SERVO_DEFAULT + (SERVO_RANGE * x), false);
-    // x = hw_commands_[ELBOW_JOINT];
-    // if (x < -1.0) x = -1.0;
-    // if (x >  1.0) x =  1.0;
-    // arduino_.setServoValues(2, SERVO_DEFAULT + (SERVO_RANGE * x), false);
-#else
+    //// Robot arm model is missing an arm2 <-> arm3 joint
+    ////                    base          shoulder      elbow         missing    wrist         gripper1
+    arduino_.setServoValues(servo_pos[0], servo_pos[1], servo_pos[2], SERVO_DEFAULT, servo_pos[3], servo_pos[4], false);
+ #else
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
     RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Writing...");
 

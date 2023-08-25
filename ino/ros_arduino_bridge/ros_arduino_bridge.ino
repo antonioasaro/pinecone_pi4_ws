@@ -143,10 +143,22 @@ char cmd;
 // Character arrays to hold the first and second arguments
 char argv1[16];
 char argv2[16];
+#ifdef ANTONIO
+char argv3[16];
+char argv4[16];
+char argv5[16];
+char argv6[16];
+#endif
 
 // The arguments converted to integers
 long arg1;
 long arg2;
+#ifdef ANTONIO
+long arg3;
+long arg4;
+long arg5;
+long arg6;
+#endif
 
 /* Clear the current command parameters */
 void resetCommand() {
@@ -157,6 +169,12 @@ void resetCommand() {
   arg2 = 0;
   arg = 0;
   index = 0;
+#ifdef ANTONIO
+  arg3 = 0;
+  arg4 = 0;
+  arg5 = 0;
+  arg6 = 0;
+#endif  
 }
 
 /* Run a command.  Commands are defined in commands.h */
@@ -167,7 +185,12 @@ int runCommand() {
   int pid_args[4];
   arg1 = atoi(argv1);
   arg2 = atoi(argv2);
-  
+#ifdef ANTONIO
+  arg3 = atoi(argv3);
+  arg4 = atoi(argv4);
+  arg5 = atoi(argv5);
+  arg6 = atoi(argv6);
+#endif  
   switch(cmd) {
   case GET_BAUDRATE:
     Serial.println(BAUDRATE);
@@ -200,8 +223,17 @@ int runCommand() {
 #endif
 #ifdef USE_SERVOS
   case SERVO_WRITE:
+#ifdef ANTONIO  
+    servos[0].setTargetPosition(arg1);
+    servos[1].setTargetPosition(arg2);
+    servos[2].setTargetPosition(arg3);
+    servos[3].setTargetPosition(arg4);
+    servos[4].setTargetPosition(arg5);
+    servos[5].setTargetPosition(arg6);
+#else  
     servos[arg1].setTargetPosition(arg2);
-    Serial.println("OK!!");
+#endif
+    Serial.println("6 OK!!");
     break;
   case SERVO_READ:
      Serial.println(servos[arg1].getServo().read());
@@ -325,6 +357,12 @@ void loop() {
     if (chr == 13) {
       if (arg == 1) argv1[index] = NULL;
       else if (arg == 2) argv2[index] = NULL;
+  #ifdef ANTONIO
+      else if (arg == 3) argv3[index] = NULL;
+      else if (arg == 4) argv4[index] = NULL;
+      else if (arg == 5) argv5[index] = NULL;
+      else if (arg == 6) argv6[index] = NULL;
+  #endif
       runCommand();
       resetCommand();
     }
@@ -337,6 +375,31 @@ void loop() {
         arg = 2;
         index = 0;
       }
+      else if (arg == 2)  {
+        argv2[index] = NULL;
+        arg = 3;
+        index = 0;
+      }
+      else if (arg == 3)  {
+        argv3[index] = NULL;
+        arg = 4;
+        index = 0;
+      }
+      else if (arg == 4)  {
+        argv4[index] = NULL;
+        arg = 5;
+        index = 0;
+      }
+      else if (arg == 5)  {
+        argv5[index] = NULL;
+        arg = 6;
+        index = 0;
+      }  
+      else if (arg == 6)  {
+        argv6[index] = NULL;
+        arg = 7;
+        index = 0;
+      }                               
       continue;
     }
     else {
@@ -353,6 +416,22 @@ void loop() {
         argv2[index] = chr;
         index++;
       }
+      else if (arg == 3) {
+        argv3[index] = chr;
+        index++;
+      }
+      else if (arg == 4) {
+        argv4[index] = chr;
+        index++;
+      }
+      else if (arg == 5) {
+        argv5[index] = chr;
+        index++;
+      }
+      else if (arg == 6) {
+        argv6[index] = chr;
+        index++;
+      }      
     }
   }
   

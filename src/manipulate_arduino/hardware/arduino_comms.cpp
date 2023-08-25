@@ -22,10 +22,10 @@ void ArduinoComms::sendEmptyMsg()
     std::string response = sendMsg("\r");
 }
 
-void ArduinoComms::setServoValues(int val_1, int val_2, bool print_output)
+void ArduinoComms::setServoValues(int val_1, int val_2, int val_3, int val_4, int val_5, int val_6, bool print_output)
 {
     std::stringstream ss;
-    ss << "s " << val_1 << " " << val_2 << "\r";
+    ss << "s " << val_1 << " " << val_2 << " " << val_3 << " " << val_4 << " " << val_5 << " " << val_6 << "\r";
     sendMsg(ss.str(), print_output);
 }
 
