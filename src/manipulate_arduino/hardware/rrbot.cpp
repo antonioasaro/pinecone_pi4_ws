@@ -25,7 +25,6 @@
 #include "rclcpp/rclcpp.hpp"
 
 #define ANTONIO
-#define JOINT_RANGE 1
 #define SERVO_TOTAL 5
 #define SERVO_DEFAULT 90
 #define SERVO_RANGE 30
@@ -234,21 +233,22 @@ namespace ros2_control_demo_example_1
       const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
   {
 #ifdef ANTONIO
-    float joint_cmd[SERVO_TOTAL];
     int servo_pos[SERVO_TOTAL];
+    float joint_cmd[SERVO_TOTAL];
     for (uint i = 0; i < SERVO_TOTAL; i++)
     {
-      joint_cmd[i] = hw_commands_[i] / JOINT_RANGE;
+      joint_cmd[i] = hw_commands_[i];
       if (joint_cmd[i] < -1.0)
         joint_cmd[i] = -1.0;
       else if (joint_cmd[i] > 1.0)
         joint_cmd[i] = 1.0;
 
-      servo_pos[i] = SERVO_DEFAULT;  
-      if (true) {
+      servo_pos[i] = SERVO_DEFAULT;
+      if (i == 4)
+        servo_pos[i] = (SERVO_DEFAULT - SERVO_RANGE) + (2 * joint_cmd[i] * SERVO_RANGE);
+      else
         servo_pos[i] = SERVO_DEFAULT + (joint_cmd[i] * SERVO_RANGE);
-        RCLCPP_INFO(rclcpp::get_logger("SERVO cmds"), "Servo position %.5f for joint %d!", hw_commands_[i], i);
-      }
+      RCLCPP_INFO(rclcpp::get_logger("SERVO cmds"), "hw_cmd: %.3f, pos: %3d, joint: %d", hw_commands_[i], servo_pos[i], i);
     }
 
     ////                    base          shoulder      elbow         wrist         gripper1
