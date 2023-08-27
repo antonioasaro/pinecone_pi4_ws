@@ -147,7 +147,6 @@ char argv2[16];
 char argv3[16];
 char argv4[16];
 char argv5[16];
-char argv6[16];
 #endif
 
 // The arguments converted to integers
@@ -157,7 +156,6 @@ long arg2;
 long arg3;
 long arg4;
 long arg5;
-long arg6;
 #endif
 
 /* Clear the current command parameters */
@@ -173,7 +171,6 @@ void resetCommand() {
   arg3 = 0;
   arg4 = 0;
   arg5 = 0;
-  arg6 = 0;
 #endif  
 }
 
@@ -189,7 +186,6 @@ int runCommand() {
   arg3 = atoi(argv3);
   arg4 = atoi(argv4);
   arg5 = atoi(argv5);
-  arg6 = atoi(argv6);
 #endif  
   switch(cmd) {
   case GET_BAUDRATE:
@@ -229,7 +225,6 @@ int runCommand() {
     servos[2].setTargetPosition(arg3);
     servos[3].setTargetPosition(arg4);
     servos[4].setTargetPosition(arg5);
-    servos[5].setTargetPosition(arg6);
 #else  
     servos[arg1].setTargetPosition(arg2);
 #endif
@@ -361,7 +356,6 @@ void loop() {
       else if (arg == 3) argv3[index] = NULL;
       else if (arg == 4) argv4[index] = NULL;
       else if (arg == 5) argv5[index] = NULL;
-      else if (arg == 6) argv6[index] = NULL;
   #endif
       runCommand();
       resetCommand();
@@ -395,11 +389,6 @@ void loop() {
         arg = 6;
         index = 0;
       }  
-      else if (arg == 6)  {
-        argv6[index] = NULL;
-        arg = 7;
-        index = 0;
-      }                               
       continue;
     }
     else {
@@ -428,10 +417,6 @@ void loop() {
         argv5[index] = chr;
         index++;
       }
-      else if (arg == 6) {
-        argv6[index] = chr;
-        index++;
-      }      
     }
   }
   

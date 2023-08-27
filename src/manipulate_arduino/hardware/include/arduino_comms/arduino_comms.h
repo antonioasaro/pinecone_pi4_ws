@@ -19,7 +19,7 @@ public:
 
   void setup(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms);
   void sendEmptyMsg();
-  void setServoValues(int val_1, int val_2, int val_3, int val_4, int val_5, int val6, bool print_output = false);
+  void setServoValues(int val_1, int val_2, int val_3, int val_4, int val_5, bool print_output = false);
   bool connected() const { return serial_conn_.isOpen(); }
   std::string sendMsg(const std::string &msg_to_send, bool print_output = false);
 
