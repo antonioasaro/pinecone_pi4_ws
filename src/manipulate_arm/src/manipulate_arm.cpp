@@ -35,9 +35,9 @@ class ManipulatorArmPublisher : public rclcpp::Node
       traj.points.resize(2);
 
       traj.points[0].positions.resize(6);
-      traj.points[0].positions[0] =  2.0;
-      traj.points[0].positions[1] = -1.5;
-      traj.points[0].positions[2] =  1.5;
+      traj.points[0].positions[0] =  0.0;
+      traj.points[0].positions[1] = -0.8;
+      traj.points[0].positions[2] =  0.3;
       traj.points[0].positions[3] =  1.0;
       traj.points[0].positions[4] =  0.6;
       traj.points[0].positions[5] =  0.6;
