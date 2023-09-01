@@ -25,9 +25,10 @@
 #include "rclcpp/rclcpp.hpp"
 
 #define ANTONIO
-#define SERVO_TOTAL 5
-#define SERVO_DEFAULT 90
-#define SERVO_RANGE 30
+#define SERVO_TOTAL     5
+#define SERVO_DEFAULT  90
+#define SERVO_RANGE    30
+#define GRIPPER1_JOINT  4
 
 namespace ros2_control_demo_example_1
 {
@@ -244,11 +245,11 @@ namespace ros2_control_demo_example_1
         joint_cmd[i] = 1.0;
 
       servo_pos[i] = SERVO_DEFAULT;
-      if (i == 4)
+      if (i == GRIPPER1_JOINT)
         servo_pos[i] = (SERVO_DEFAULT - SERVO_RANGE) + (2 * joint_cmd[i] * SERVO_RANGE);
       else
-        servo_pos[i] = SERVO_DEFAULT + (joint_cmd[i] * SERVO_RANGE);
-      RCLCPP_INFO(rclcpp::get_logger("SERVO cmds"), "hw_cmd: %.3f, pos: %3d, joint: %d", hw_commands_[i], servo_pos[i], i);
+        servo_pos[i] = SERVO_DEFAULT + (joint_cmd[i] * (180 / M_PI));
+        // RCLCPP_INFO(rclcpp::get_logger("SERVO cmds"), "hw_cmd: %.3f, pos: %3d, joint: %d", hw_commands_[i], servo_pos[i], i);
     }
 
     ////                    base          shoulder      elbow         wrist         gripper1
