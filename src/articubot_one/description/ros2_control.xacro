@@ -125,14 +125,14 @@
             <joint name="gripper1_joint">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">0</param>
+                  <param name="initial_value">0.6</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
             <joint name="gripper2_joint">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">0</param>
+                  <param name="initial_value">0.6</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>

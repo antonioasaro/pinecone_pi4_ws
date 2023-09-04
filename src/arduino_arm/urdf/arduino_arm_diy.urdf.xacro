@@ -187,8 +187,12 @@
         <collision>
             <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
             <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>                      
+            <!-- <geometry>
                 <cylinder length="0.001" radius="0.001" />
-            </geometry>
+            </geometry> -->
         </collision>
     </link>
 
