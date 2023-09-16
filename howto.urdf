@@ -1,0 +1,1 @@
+ros2 launch urdf_tutorial display.launch.py model:=./src/arduino_arm/urdf/arduino_arm.urdf.xacro

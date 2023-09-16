@@ -1,0 +1,4 @@
+ros2 action send_goal /robot_hand_controller/gripper_cmd control_msgs/action/GripperCommand "command:
+  position: 0.8
+  max_effort: 0.0
+"

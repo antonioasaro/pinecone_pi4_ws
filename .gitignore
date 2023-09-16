@@ -40,3 +40,7 @@ log/
 install/
 
 *.log
+*.gcode
+*.FCBak
+
+abc.*

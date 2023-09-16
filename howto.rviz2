@@ -1,1 +1,2 @@
- ros2 run rviz2 rviz2 -d ./src/articubot_one/config/main.rviz --ros-args -p use_sim_time:=true
+source /opt/ros/humble/setup.bash
+ros2 run rviz2 rviz2 -d ./src/articubot_one/config/main.rviz --ros-args -p use_sim_time:=true

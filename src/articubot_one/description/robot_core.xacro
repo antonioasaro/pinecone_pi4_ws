@@ -4,19 +4,21 @@
     <xacro:include filename="inertial_macros.xacro"/>
 
 
-    <xacro:property name="chassis_length" value="0.335"/>
-    <xacro:property name="chassis_width" value="0.265"/>
-    <xacro:property name="chassis_height" value="0.138"/>
+    <xacro:property name="chassis_length" value="0.25"/>    <!-- 335"/>     -->
+    <xacro:property name="chassis_width" value="0.125"/>    <!-- 265"/>     -->
+    <xacro:property name="chassis_height" value="0.04"/>   <!-- 138"/>     -->
+    <!-- <xacro:property name="chassis_extension_length" value="0.15"/>
+    <xacro:property name="chassis_extension_height" value="0.01"/> -->
     <xacro:property name="chassis_mass" value="1.0"/>
     <xacro:property name="wheel_radius" value="0.033"/>
     <xacro:property name="wheel_thickness" value="0.026"/>
     <xacro:property name="wheel_mass" value="0.05"/>
-    <xacro:property name="wheel_offset_x" value="0.226"/>
-    <xacro:property name="wheel_offset_y" value="0.1485"/>
+    <xacro:property name="wheel_offset_x" value="0.15"/>    <!-- 226"/>     -->
+    <xacro:property name="wheel_offset_y" value="0.09"/>    <!--1485"/>     -->
     <xacro:property name="wheel_offset_z" value="0.01"/>
-    <xacro:property name="caster_wheel_radius" value="0.01"/>
+    <xacro:property name="caster_wheel_radius" value="0.015"/>
     <xacro:property name="caster_wheel_mass" value="0.01"/>
-    <xacro:property name="caster_wheel_offset_x" value="0.075"/>
+    <xacro:property name="caster_wheel_offset_x" value="0.02"/>     <!-- 75"/>      -->
     <xacro:property name="caster_wheel_offset_z" value="${wheel_offset_z - wheel_radius + caster_wheel_radius}"/>
 
     <material name="white">
@@ -41,6 +43,18 @@
 
     <material name="yellow">
         <color rgba="1 1 0 1"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0 1 0 1"/>
+    </material>
+
+    <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+
+    <material name="brown">
+        <color rgba="${222/255} ${207/255} ${195/255} 1.0"/>
     </material>
 
     <!-- BASE LINK -->
@@ -83,7 +97,7 @@
                 <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
             </geometry>
         </collision>
-        <xacro:inertial_box mass="0.5" x="${chassis_length}" y="${chassis_width}" z="${chassis_height}">
+        <xacro:inertial_box mass="2.0" x="${chassis_length}" y="${chassis_width}" z="${chassis_height}">
             <origin xyz="${chassis_length/2} 0 ${chassis_height/2}" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
@@ -91,6 +105,35 @@
     <gazebo reference="chassis">
         <material>Gazebo/Orange</material>
     </gazebo>
+
+    <!-- <joint name="chassis_extension_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="chassis_extension"/>
+        <origin xyz="${chassis_length} 0 ${wheel_radius}"/>
+    </joint>
+
+    <link name="chassis_extension">
+        <visual>
+            <origin xyz="${chassis_extension_length/2} 0 ${chassis_extension_height/2}"/>
+            <geometry>
+                <box size="${chassis_extension_length} ${chassis_width} ${chassis_extension_height}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="${chassis_extension_length/2} 0 ${chassis_extension_height/2}"/>
+            <geometry>
+                <box size="${chassis_extension_length} ${chassis_width} ${chassis_extension_height}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.01" x="${chassis_extension_length}" y="${chassis_width}" z="${chassis_extension_height}">
+            <origin xyz="${chassis_extension_length/2} 0 ${chassis_extension_height/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="chassis_extension">
+        <material>Gazebo/Orange</material>
+    </gazebo> -->
 
     <!-- LEFT WHEEL LINK -->
 
@@ -170,7 +213,7 @@
             <geometry>
                 <sphere radius="${caster_wheel_radius}"/>
             </geometry>
-            <material name="white"/>
+            <material name="blue"/>
         </visual>
         <collision>
             <geometry>
@@ -183,7 +226,7 @@
     </link>
 
     <gazebo reference="caster_wheel">
-        <material>Gazebo/White</material>
+        <material>Gazebo/Blue</material>
         <mu1 value="0.001"/>
         <mu2 value="0.001"/>
     </gazebo>

@@ -1,3 +1,3 @@
 source howto.ros2
-source ./install/setup.bash
-source howto.gazebo
+source howto.colcon
+source howto.install

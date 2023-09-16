@@ -16,7 +16,11 @@
     <xacro:include filename="camera.xacro" />
     <xacro:include filename="imu.xacro" />
     <!-- <xacro:include filename="depth_camera.xacro" /> -->
+    <!-- <xacro:include filename="face.xacro" /> -->
 
-    <xacro:include filename="face.xacro" />
-    
+    <!-- <xacro:include filename="rrbot.urdf.xacro" /> -->
+    <!-- <xacro:include filename="$(find robot_arm)/urdf/robot_arm.urdf" /> -->
+    <!-- <xacro:include filename="$(find eezybotarm)/urdf/eezybotarm.urdf.xacro" /> -->
+    <xacro:include filename="$(find arduino_arm)/urdf/arduino_arm_diy.urdf.xacro" />
+
 </robot>

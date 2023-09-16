@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!-- <xacro:property name="sim_mode" value="true"/> -->
     <xacro:unless value="$(arg sim_mode)">
         <ros2_control name="RealRobot" type="system">
             <hardware>
@@ -9,47 +10,69 @@
                 <param name="example_param_hw_stop_duration_sec">3.0</param>
             </hardware>
             <joint name="left_wheel_joint">
-                <command_interface name="velocity"/>
+                <command_interface name="velocity" />
                 <state_interface name="position" />
                 <state_interface name="velocity" />
             </joint>
             <joint name="right_wheel_joint">
-                <command_interface name="velocity"/>
+                <command_interface name="velocity" />
                 <state_interface name="position" />
                 <state_interface name="velocity" />
             </joint>
         </ros2_control>
-
-        <!-- <ros2_control name="RealRobot" type="system">
+        <ros2_control name="RealRobotArm" type="system">
             <hardware>
-                <plugin>diffdrive_arduino/DiffDriveArduino</plugin>
-                <param name="left_wheel_name">left_wheel_joint</param>
-                <param name="right_wheel_name">right_wheel_joint</param>
-                <param name="loop_rate">30</param>
-                <param name="device">/dev/ttyUSB0</param>
-                <param name="baud_rate">57600</param>
-                <param name="timeout">1000</param>
-                <param name="enc_counts_per_rev">3436</param>
+                <plugin>ros2_control_demo_example_1/RRBotSystemPositionOnlyHardware</plugin>
+                <param name="example_param_hw_start_duration_sec">0</param>
+                <param name="example_param_hw_stop_duration_sec">3.0</param>
+                <param name="example_param_hw_slowdown">1.0</param>
             </hardware>
-            <joint name="left_wheel_joint">
-                <command_interface name="velocity">
-                    <param name="min">-10</param>
-                    <param name="max">10</param>
-                </command_interface>
-                <state_interface name="velocity" />
-                <state_interface name="position" />
+            <joint name="base_waist_joint">
+              <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+              <state_interface name="position"/>
             </joint>
-            <joint name="right_wheel_joint">
-                <command_interface name="velocity">
-                    <param name="min">-10</param>
-                    <param name="max">10</param>
-                </command_interface>
-                <state_interface name="velocity" />
-                <state_interface name="position" />
+            <joint name="shoulder_joint">
+              <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+              <state_interface name="position"/>
             </joint>
-        </ros2_control> -->
+            <joint name="elbow_joint">
+              <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+              <state_interface name="position"/>
+            </joint>
+            <joint name="wrist_joint">
+              <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+              <state_interface name="position"/>
+            </joint>
+            <joint name="gripper1_joint">
+              <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+              <state_interface name="position"/>
+            </joint>
+            <joint name="gripper2_joint">
+              <command_interface name="position">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+              </command_interface>
+              <state_interface name="position"/>
+            </joint>
+        </ros2_control>
     </xacro:unless>
 
+    
     <xacro:if value="$(arg sim_mode)">
         <ros2_control name="GazeboSystem" type="system">
             <hardware>
@@ -71,6 +94,48 @@
                 <state_interface name="velocity" />
                 <state_interface name="position" />
             </joint>
+            <joint name="base_waist_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">0</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="shoulder_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">0</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="elbow_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">0</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="wrist_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">0</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="gripper1_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">0.6</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="gripper2_joint">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">0.6</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
         </ros2_control>
     </xacro:if>
 
@@ -78,6 +143,8 @@
         <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
             <parameters>$(find articubot_one)/config/my_controllers.yaml</parameters>
             <parameters>$(find articubot_one)/config/gaz_ros2_ctl_use_sim.yaml</parameters>
+            <!-- <parameters>$(find arduino_arm_config)/config/ros2_controllers.yaml</parameters> -->
+            <!-- <parameters>$(find articubot_one)/config/forward_position_publisher.yaml</parameters> -->
         </plugin>
     </gazebo>
 

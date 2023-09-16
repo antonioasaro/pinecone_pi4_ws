@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: arduino_arm
+    relative_path: urdf/arduino_arm_moveit.urdf.xacro
+  srdf:
+    relative_path: config/robot.srdf
+  package_settings:
+    author_name: Antonio Asaro
+    author_email: antonio_asaro@hotmail.com
+    generated_timestamp: 1691414175
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

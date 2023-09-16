@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
+
+    <xacro:include filename="inertial_macros.xacro" />
+    <!-- <?xml version="1.0"?> -->
+    <!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+    <!-- <robot name="arduino_arm"> -->
+    <link name="base_link" />
+
+    <joint name="base_link_arduino_arm_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="base_link_arduino_arm" />
+        <origin xyz="-0.14 0 0.145" rpy="0 0 0" />
+    </joint>
+
+
+    <link name="base_link_arduino_arm">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.01" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Base.stl"
+                    scale="0.00098 0.00098 0.00098" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.0029 0.00016 0.01165" rpy="3.14159 0 0" />
+            <geometry>
+                <cylinder radius="0.0592" length="0.05469" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="waist_link">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.001" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Waist.stl"
+                    scale="0.00098 0.00098 0.00098" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.00019 0 3e-05" rpy="1.5708 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Waist.001.stl"
+                    scale="0.00392 0.00392 0.00392" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="arm1_link">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.001" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Arm_01.stl"
+                    scale="0.00098 0.00098 0.00098" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00032 0.05624 0.00439" rpy="0 0 0" />
+            <geometry>
+                <box size="0.04221 0.16277 0.02051" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="arm2_link">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.001" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.48894 -1.57209 1.57067" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Arm_02.stl"
+                    scale="0.00098 0.00098 0.00098" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00436 0.05688 0.00738" rpy="-1.48879 -1.57209 1.57066" />
+            <geometry>
+                <box size="0.02681 0.16398 0.0384" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="arm3_link">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.0001" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="1.2416 1.55752 1.5708" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Arm_03.stl"
+                    scale="0.00098 0.00098 0.00098" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.00062 0.00019 0.00049" rpy="1.24161 1.55752 1.5708" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/Arm_03.001.stl"
+                    scale="1.0 1.0 1.0" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="gripper1_link">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.0001" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 -0.01 0.014" rpy="-1.86728 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper1_fix.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 -0.01 0.014" rpy="-1.86728 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper1_fix.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="gripper2_link">
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.0001" />
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
+            <geometry>
+                <mesh filename="file://$(find arduino_arm)/meshes/gripper2_fix.stl"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="-0.0015 0.01 -0.0165" rpy="1.25673 0 0" />
+            <geometry>
+                <cylinder length="0.001" radius="0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_waist_joint" type="revolute">
+        <origin xyz="-0.00345 -1e-05 0.04449" rpy="0 0 0" />
+        <parent link="base_link_arduino_arm" />
+        <child link="waist_link" />
+        <axis xyz="0 0 1.0" />
+        <limit lower="-1.571" upper="1.571" effort="1000.0" velocity="1.0" />
+    </joint>
+    <joint name="shoulder_joint" type="revolute">
+        <origin xyz="0.00396 0.01369 0.03521" rpy="1.5708 0.03778 1.5708" />
+        <parent link="waist_link" />
+        <child link="arm1_link" />
+        <axis xyz="0 0 1.0" />
+        <limit lower="-1.571" upper="1.571" effort="1000.0" velocity="1.0" />
+    </joint>
+    <joint name="elbow_joint" type="revolute">
+        <origin xyz="-7e-05 0.11689 -0.00792" rpy="-0.0013 -3.14159 0.03778" />
+        <parent link="arm1_link" />
+        <child link="arm2_link" />
+        <axis xyz="0 0 1.0" />
+        <limit lower="-1.57" upper="1.57" effort="1000.0" velocity="1.0" />
+    </joint>
+    <joint name="wrist_joint" type="revolute">
+        <origin xyz="-0.0088 0.12752 -0.00487" rpy="-0.01458 3.14159 0" />
+        <parent link="arm2_link" />
+        <child link="arm3_link" />
+        <axis xyz="0 0 1.0" />
+        <limit lower="-1.57" upper="1.57" effort="1000.0" velocity="1.0" />
+    </joint>
+    <joint name="gripper1_joint" type="revolute">
+        <origin xyz="-0.02735 0.03009 -0.02013" rpy="-1.27431 -1.58408 1.5708" />
+        <parent link="arm3_link" />
+        <child link="gripper1_link" />
+        <axis xyz="0 0 1.0" />
+        <limit lower="0" upper="1.047" effort="1000.0" velocity="1.0" />
+    </joint>
+    <joint name="gripper2_joint" type="revolute">
+        <origin xyz="-0.02492 0.03048 0.00564" rpy="-1.25673 -1.55752 -1.57079" />
+        <parent link="arm3_link" />
+        <child link="gripper2_link" />
+        <axis xyz="0 0 1.0" />
+        <limit lower="0" upper="1.047" effort="1000.0" velocity="1.0" />
+        <mimic joint="gripper1_joint" multiplier="1.0" offset="0.0" />
+    </joint>
+
+    <transmission name="trans_base_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="base_joint_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_shoulder">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="shoulder_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="shoulder_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_elbow">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="elbow_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="elbow_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wrist">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wrist_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wrist_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_gripper">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripper1_joint">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripper_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <!--
+    <transmission name="trans_gripper2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripper2_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripper2_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <gazebo>
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo>
+-->
+
+    <!-- <xacro:property name="wheel_radius" value="0.0001"/>
+    <xacro:property name="wheel_thickness" value="0.026"/>
+    <xacro:property name="wheel_mass" value="0.05"/>
+    <xacro:property name="wheel_offset_y" value="0.1485"/> -->
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1" />
+    </material>
+
+    <joint name="left_wheel_joint" type="fixed">
+        <parent link="base_link_arduino_arm" />
+        <child link="left_wheel" />
+        <origin xyz="0 0.004 0" rpy="-${pi/2} 0 0" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <link name="left_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.001" length="0.002" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.001" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.003" length="0.002" radius="0.002">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+    </link>
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <joint name="right_wheel_joint" type="fixed">
+        <parent link="base_link_arduino_arm" />
+        <child link="right_wheel" />
+        <origin xyz="0 -0.004 0" rpy="${pi/2} 0 0" />
+        <axis xyz="0 0 -1" />
+    </joint>
+
+    <link name="right_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.001" length="0.002" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.002" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.003" length="0.002" radius="0.001">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+    </link>
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+
+    <gazebo reference="base_link_arduino_arm">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="waist_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="arm1_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="arm2_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="arm3_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="gripper1_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="gripper2_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+</robot>

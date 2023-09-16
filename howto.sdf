@@ -1,0 +1,2 @@
+ urdf_to_graphviz ./src/arduino_arm/urdf/arduino_arm_moveit.urdf.xacro 
+ gz sdf -p ./src/arduino_arm/urdf/arduino_arm_moveit.urdf.xacro
