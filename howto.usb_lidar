@@ -1,0 +1,1 @@
+ros2 launch sllidar_ros2 sllidar_launch.py 
