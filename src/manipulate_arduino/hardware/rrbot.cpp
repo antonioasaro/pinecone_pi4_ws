@@ -100,7 +100,7 @@ namespace ros2_control_demo_example_1
   {
 
 #ifdef ANTONIO
-    arduino_.setup("/dev/ttyUSB0", 115200, 1000);
+    arduino_.setup("/dev/serial/by-id/usb-1a86_USB2.0-Ser_-if00-port0", 115200, 1000);
     RCLCPP_INFO(rclcpp::get_logger("RRBotSystemPositionOnlyHardware"), "Finished arduino_comms configuration");
 #else
     // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
