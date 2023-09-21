@@ -287,6 +287,17 @@ int runCommand() {
 
 /* Setup function--runs once at startup. */
 void setup() {
+
+#ifdef ANTONIO
+  int j;
+  for (j = 0; j < 8; j++) {
+    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+    delay(500);                       // wait for a 1/2 second
+    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+    delay(500);                       // wait for a 1/2 second
+  }
+#endif
+
   Serial.begin(BAUDRATE);
 
 // Initialize the motor controller if used */
@@ -327,15 +338,6 @@ void setup() {
   }
 #endif
 
-#ifdef ANTONIO
-  int j;
-  for (j = 0; j < 8; j++) {
-    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-    delay(500);                       // wait for a 1/2 second
-    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-    delay(500);                       // wait for a 1/2 second
-  }
-#endif
 }
 
 /* Enter the main loop.  Read and parse input from the serial port
