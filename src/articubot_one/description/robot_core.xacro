@@ -151,6 +151,13 @@
             </geometry>
             <material name="blue"/>
         </visual>
+        <visual>
+            <origin xyz="0 0 ${-wheel_thickness/2}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.005" length="0.03"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
         <collision>
             <geometry>
                 <sphere radius="${wheel_radius}"/>
@@ -181,6 +188,13 @@
         <visual>
             <geometry>
                 <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <visual>
+            <origin xyz="0 0 ${-wheel_thickness/2}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.005" length="0.03"/>
             </geometry>
             <material name="blue"/>
         </visual>
