@@ -9,7 +9,7 @@
     <joint name="base_link_arduino_arm_joint" type="fixed">
         <parent link="chassis" />
         <child link="base_link_arduino_arm" />
-        <origin xyz="0.15 0 0.056" rpy="0 0 -1.5708" />
+        <origin xyz="0.15 0 0.056" rpy="0 0 0" />
     </joint>
 
 
@@ -197,7 +197,7 @@
     </link>
 
     <joint name="base_waist_joint" type="revolute">
-        <origin xyz="-0.00345 -1e-05 0.04449" rpy="0 0 0" />
+        <origin xyz="-0.00345 -1e-05 0.04449" rpy="0 0 -1.5708" />
         <parent link="base_link_arduino_arm" />
         <child link="waist_link" />
         <axis xyz="0 0 1.0" />

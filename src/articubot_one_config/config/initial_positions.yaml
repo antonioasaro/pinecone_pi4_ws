@@ -3,6 +3,5 @@
 initial_positions:
   base_waist_joint: 0
   elbow_joint: 0
-  gripper1_joint: 0
   shoulder_joint: 0
   wrist_joint: 0
