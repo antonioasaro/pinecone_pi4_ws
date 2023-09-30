@@ -17,8 +17,9 @@ moveit_simple_controller_manager:
       - elbow_joint
       - wrist_joint
   robot_hand_controller:
-    type: GripperCommand
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: true
     joints:
       - gripper1_joint
-    action_ns: gripper_cmd
-    default: true
+      - gripper2_joint
