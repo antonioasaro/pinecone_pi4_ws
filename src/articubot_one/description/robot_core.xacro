@@ -5,7 +5,7 @@
 
 
     <xacro:property name="chassis_length" value="0.25"/>    <!-- 335"/>     -->
-    <xacro:property name="chassis_width" value="0.125"/>    <!-- 265"/>     -->
+    <xacro:property name="chassis_width" value="0.130"/>    <!-- 265"/>     -->
     <xacro:property name="chassis_height" value="0.04"/>   <!-- 138"/>     -->
     <!-- <xacro:property name="chassis_extension_length" value="0.15"/>
     <xacro:property name="chassis_extension_height" value="0.01"/> -->
@@ -244,5 +244,38 @@
         <mu1 value="0.001"/>
         <mu2 value="0.001"/>
     </gazebo>
+
+
+    <!-- RaspPi4 -->
+
+    <joint name="raspi_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="raspi"/>
+        <origin xyz="0.01 -0.03 0.04" rpy="0 -${pi/2} 0"/>
+    </joint>
+
+    <link name="raspi">
+        <visual>
+            <origin xyz="0.04 0.03 0.005"/>
+            <geometry>
+                <box size="0.08 0.06 0.01"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0.04 0.03 0.005"/>
+            <geometry>
+                <box size="0.08 0.06 0.01"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.05" x="0.08" y="0.06" z="0.01">
+            <origin xyz="0.04 0.03 0.005" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="raspi">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
 
 </robot>
